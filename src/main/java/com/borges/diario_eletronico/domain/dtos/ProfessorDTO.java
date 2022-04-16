@@ -2,20 +2,22 @@ package com.borges.diario_eletronico.domain.dtos;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.borges.diario_eletronico.domain.Profissional;
+import com.borges.diario_eletronico.domain.Professor;
+import com.borges.diario_eletronico.domain.enums.Perfil;
 
-public class ProfissionalDTO implements Serializable{
+public class ProfessorDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
@@ -47,32 +49,22 @@ public class ProfissionalDTO implements Serializable{
 	//@NotBlank(message = "Campo ENDEREÇO não pode ser vasio!")
 	private String endereco;
 
-	//@NotNull(message = "Campo NÚMERO não pode ser vasio!")
-	private Integer numero;
-
-	//@NotBlank(message = "Campo BAIRRO não pode ser vasio!")
-	private String bairro;
-
-	//@NotBlank(message = "Campo CEP não pode ser vasio!")
-	private String cep;
-
-	//@NotBlank(message = "Campo CIDADE não pode ser vasio!")
-	private String cidade;
-
-	//@NotBlank(message = "Campo ESTADO não pode ser vasio!")
-	private String estado;
-
 	//@NotBlank(message = "Campo ZONA não pode ser vasio!")
 	private String zona;
 	
-	private Integer turma;
-	private String nomeTurma;
+	@NotNull(message = "O campo E-MAIL é requerido")
+	protected String email;
+	
+	@NotNull(message = "O campo SENHA é requerido")
+	protected String senha;
+	protected Set<Integer> perfis = new HashSet<>();
 
-	public ProfissionalDTO() {
+	public ProfessorDTO() {
 		super();
+		addPerfil(Perfil.PROFESSOR);
 	}
 	
-	public ProfissionalDTO(Profissional obj) {
+	public ProfessorDTO(Professor obj) {
 
 		super();
 		this.id = obj.getId();
@@ -83,14 +75,11 @@ public class ProfissionalDTO implements Serializable{
 		this.rg = obj.getRg();
 		this.telefone = obj.getTelefone();
 		this.endereco = obj.getEndereco();
-		this.numero = obj.getNumero();
-		this.bairro = obj.getBairro();
-		this.cep = obj.getCep();
-		this.cidade = obj.getCidade();
-		this.estado = obj.getEstado();
 		this.zona = obj.getZona();
-		this.turma = obj.getTurma().stream().map(x -> x.getId()).collect(Collectors.toList()).hashCode();
-		this.nomeTurma = obj.getTurma().stream().map(i -> i.getNomeTurma()).collect(Collectors.toList()).toString();
+		this.email = obj.getEmail();
+		this.senha = obj.getSenha();
+		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+		addPerfil(Perfil.PROFESSOR);
 	}
 	
 	public Integer getId() {
@@ -157,46 +146,6 @@ public class ProfissionalDTO implements Serializable{
 		this.endereco = endereco;
 	}
 
-	public Integer getNumero() {
-		return numero;
-	}
-
-	public void setNumero(Integer numero) {
-		this.numero = numero;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
 	public String getZona() {
 		return zona;
 	}
@@ -205,21 +154,28 @@ public class ProfissionalDTO implements Serializable{
 		this.zona = zona;
 	}
 
-	public Integer getTurma() {
-		return turma;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setTurma(Integer turma) {
-		this.turma = turma;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getNomeTurma() {
-		return nomeTurma;
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setNomeTurma(String nomeTurma) {
-		this.nomeTurma = nomeTurma;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
-		
+
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+
+	public void addPerfil(Perfil perfil) {
+		this.perfis.add(perfil.getCodigo());
+	}
 	
 }

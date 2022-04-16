@@ -19,18 +19,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.borges.diario_eletronico.domain.Profissional;
-import com.borges.diario_eletronico.domain.dtos.ProfissionalDTO;
-import com.borges.diario_eletronico.service.ProfissionalService;
+import com.borges.diario_eletronico.domain.Professor;
+import com.borges.diario_eletronico.domain.dtos.ProfessorDTO;
+import com.borges.diario_eletronico.service.ProfessorService;
 
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping(value = "/profissionais")
-public class ProfissionalController {
+@RequestMapping(value = "/professores")
+public class ProfessorController {
 	
 	@Autowired
-	private ProfissionalService service;
+	private ProfessorService service;
 		
 	/**
 	 * Buscar Profissional pelo ID
@@ -43,9 +43,9 @@ public class ProfissionalController {
 	}*/
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<ProfissionalDTO> findById(@PathVariable Integer id) {
-		Profissional obj = service.findById(id);
-		return ResponseEntity.ok().body(new ProfissionalDTO(obj));
+	public ResponseEntity<ProfessorDTO> findById(@PathVariable Integer id) {
+		Professor obj = service.findById(id);
+		return ResponseEntity.ok().body(new ProfessorDTO(obj));
 	}
 		
 	/*
@@ -60,9 +60,9 @@ public class ProfissionalController {
 	}*/
 	
 	@GetMapping
-	public ResponseEntity<List<ProfissionalDTO>> findAll() {
-		List<Profissional> list = service.findAll();
-		List<ProfissionalDTO> listDTO = list.stream().map(x -> new ProfissionalDTO(x)).collect(Collectors.toList());
+	public ResponseEntity<List<ProfessorDTO>> findAll() {
+		List<Professor> list = service.findAll();
+		List<ProfessorDTO> listDTO = list.stream().map(x -> new ProfessorDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
 
@@ -71,19 +71,19 @@ public class ProfissionalController {
 	 * Atualizar um Profissional
 	 */
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ProfissionalDTO> update(@PathVariable Integer id, @RequestBody ProfissionalDTO objDTO) {
-		Profissional obj =  service.update(id, objDTO);
+	public ResponseEntity<ProfessorDTO> update(@PathVariable Integer id, @RequestBody ProfessorDTO objDTO) {
+		Professor obj =  service.update(id, objDTO);
 		
-		return ResponseEntity.ok().body(new ProfissionalDTO(obj));
+		return ResponseEntity.ok().body(new ProfessorDTO(obj));
 	}
 	
 	/*
 	 * Cria um Profissional
 	 */
 	@PostMapping
-	public ResponseEntity<ProfissionalDTO> create(@Valid @RequestBody ProfissionalDTO obj) throws Exception {
+	public ResponseEntity<ProfessorDTO> create(@Valid @RequestBody ProfessorDTO obj) throws Exception {
 		
-		Profissional newObj = service.create(obj);
+		Professor newObj = service.create(obj);
 							
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
 

@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,19 +27,12 @@ public abstract class Pessoa implements Serializable{
 	private Integer id;
 	private String nome;
 	private Date nascimento;
-	private String sexo;
-	
+	private String sexo;	
 	@CPF
-	private String cpf;
-	
+	private String cpf;	
 	private String rg;
 	private String telefone;
 	private String endereco;
-	private Integer numero;
-	private String bairro;
-	private String cep; 
-	private String cidade;
-	private String estado;
 	private String zona;
 	
 	//@Column(unique = true)
@@ -54,12 +46,11 @@ public abstract class Pessoa implements Serializable{
 	
 	public Pessoa() {
 		super();
-		addPerfil(Perfil.ALUNO);
 	}
 	
 	
 	public Pessoa(Integer id, String nome, Date nascimento, String sexo, String cpf, String rg, String telefone, String endereco,
-			Integer numero, String bairro, String cep, String cidade, String estado, String zona, String email, String senha) {
+			String zona, String email, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -69,15 +60,9 @@ public abstract class Pessoa implements Serializable{
 		this.rg = rg;
 		this.telefone = telefone;
 		this.endereco = endereco;
-		this.numero = numero;
-		this.bairro = bairro;
-		this.cep = cep;
-		this.cidade = cidade;
-		this.estado = estado;
 		this.zona = zona;
 		this.email = email;
 		this.senha = senha;
-		addPerfil(Perfil.ALUNO);
 	}
 	
 	@Override
@@ -122,8 +107,7 @@ public abstract class Pessoa implements Serializable{
 	@Override
 	public String toString() {
 		return "Pessoa [id=" + id + ", nome=" + nome + ", nascimento=" + nascimento + ", sexo=" + sexo + ", cpf=" + cpf
-				+ ", rg=" + rg + ", telefone=" + telefone + ", endereco=" + endereco + ", numero=" + numero
-				+ ", bairro=" + bairro + ", cep=" + cep + ", cidade=" + cidade + ", estado=" + estado + ", zona=" + zona
+				+ ", rg=" + rg + ", telefone=" + telefone + ", endereco=" + endereco + ", zona=" + zona
 				+ "]";
 	}
 
@@ -190,46 +174,6 @@ public abstract class Pessoa implements Serializable{
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
-	}
-
-	public Integer getNumero() {
-		return numero;
-	}
-
-	public void setNumero(Integer numero) {
-		this.numero = numero;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
 	}
 
 	public String getZona() {

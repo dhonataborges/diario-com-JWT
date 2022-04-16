@@ -1,18 +1,14 @@
 package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -22,28 +18,40 @@ public class Turma implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String codTurma;
 	private String nomeTurma;
+	private String turno;
+	private Date anoCriacao;
+	
+	@ManyToOne
+	@JoinColumn(name = "professsor_id")
+	private Professor professor;
 
-	@ManyToOne()
+	/*@ManyToOne()
 	@JoinColumn(name = "aluno_id")
-	private Aluno aluno;
-
+	private Aluno aluno;*/
+	
+	/*@JsonManagedReference 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "Professor_Turma", joinColumns = { @JoinColumn(name = "professor_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "turma_id") })
-	private List<Profissional> professor = new ArrayList<>();
+	private List<Profissional> professor = new ArrayList<>();*/
 
 	public Turma() {
 		super();
 	}
-
-	public Turma(Integer id, String nomeTurma, Aluno aluno, List<Profissional> professor) {
+	
+	public Turma(Integer id, String codTurma, String nomeTurma, String turno, Date anoCriacao,
+			Professor professor) {
 		super();
 		this.id = id;
+		this.codTurma = codTurma;
 		this.nomeTurma = nomeTurma;
-		this.aluno = aluno;
+		this.turno = turno;
+		this.anoCriacao = anoCriacao;
 		this.professor = professor;
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -70,6 +78,14 @@ public class Turma implements Serializable {
 		this.id = id;
 	}
 
+	public String getCodTurma() {
+		return codTurma;
+	}
+
+	public void setCodTurma(String codTurma) {
+		this.codTurma = codTurma;
+	}
+
 	public String getNomeTurma() {
 		return nomeTurma;
 	}
@@ -78,20 +94,28 @@ public class Turma implements Serializable {
 		this.nomeTurma = nomeTurma;
 	}
 
-	public List<Profissional> getProfessor() {
+	public String getTurno() {
+		return turno;
+	}
+
+	public void setTurno(String turno) {
+		this.turno = turno;
+	}
+
+	public Date getAnoCriacao() {
+		return anoCriacao;
+	}
+
+	public void setAnoCriacao(Date anoCriacao) {
+		this.anoCriacao = anoCriacao;
+	}
+
+	public Professor getProfessor() {
 		return professor;
 	}
 
-	public void setProfessor(List<Profissional> professor) {
+	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
-
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-	}
-
+	
 }

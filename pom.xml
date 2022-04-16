@@ -60,7 +60,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-				
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
@@ -76,8 +76,13 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.7.0</version>
 		</dependency>
-		
-		
+
+		<!--Dependência do framework responsável por executar as consultas nativas -->
+		<dependency>
+			<groupId>io.github.gasparbarancelli</groupId>
+			<artifactId>spring-native-query</artifactId>
+			<version>1.0.28</version>
+		</dependency>
 	</dependencies>
 
 	<build>

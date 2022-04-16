@@ -14,7 +14,7 @@ import com.borges.diario_eletronico.domain.AulasLecionadas;
 import com.borges.diario_eletronico.domain.Cargo;
 import com.borges.diario_eletronico.domain.Frequencia;
 import com.borges.diario_eletronico.domain.ObservacoesGerais;
-import com.borges.diario_eletronico.domain.Profissional;
+import com.borges.diario_eletronico.domain.Professor;
 import com.borges.diario_eletronico.domain.ResultadoFinal;
 import com.borges.diario_eletronico.domain.Turma;
 import com.borges.diario_eletronico.domain.enums.Perfil;
@@ -22,10 +22,9 @@ import com.borges.diario_eletronico.repository.AlunoRepository;
 import com.borges.diario_eletronico.repository.AtividadesAvaliativasRepository;
 import com.borges.diario_eletronico.repository.AulasLecionadasRepository;
 import com.borges.diario_eletronico.repository.CargoRepository;
-import com.borges.diario_eletronico.repository.DisciplinaRepository;
 import com.borges.diario_eletronico.repository.FrequenciaRepository;
 import com.borges.diario_eletronico.repository.ObservacoesGeraisRepository;
-import com.borges.diario_eletronico.repository.ProfissionalRepository;
+import com.borges.diario_eletronico.repository.ProfessorRepository;
 import com.borges.diario_eletronico.repository.ResultadoFinalRepository;
 import com.borges.diario_eletronico.repository.TurmaRepository;
 
@@ -38,7 +37,7 @@ public class DBService {
 	private AlunoRepository alunoRepository;
 	
 	@Autowired
-	private ProfissionalRepository profissionalRepository;
+	private ProfessorRepository profissionalRepository;
 	
 	@Autowired
 	private ObservacoesGeraisRepository observacoesRepository;
@@ -57,10 +56,7 @@ public class DBService {
 	
 	@Autowired
 	private TurmaRepository turmaRepository;
-	
-	@Autowired
-	private DisciplinaRepository disciplinaRepository;
-	
+		
 	@Autowired
 	private CargoRepository cargoRepository;
 	
@@ -73,19 +69,16 @@ public class DBService {
 		/*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 		LocalDateTime dateTime = LocalDateTime.parse("2016-09-21 13:43:27.000", formatter);*/
 		
-		Aluno a1 = new Aluno(null, "João Borges", sdf.parse("25/06/1995"),"masculino", "133.120.446-18", "mg19.599.003", 
-							"(38)99927-6907", "rua: batista", 17, "veredinha","38689-000","chapada",
-							"minas Gerais", "urbana", "dhonata@gmail.com","123");
+		Aluno a1 = new Aluno(null, "João Borges", sdf.parse("25/06/1995"),"masculino", "133.120.446-18", "mg19.599.003", "Maria Aparecida do Santos",
+							"(38)99927-6907", "rua: batista", "urbana");
 			
-		Profissional p1 = new Profissional(null, "Mateus Oliver",sdf.parse("25/06/1995"), "Feminino","787.352.100-10", "mg19.599.003", 
-							"(38)99927-6907",  "rua: batista", 17, "veredinha","38689-000","chapada",
-							"minas Gerais", "urbana","admin@gmail.com", encoder.encode("123"));
+		Professor p1 = new Professor(null, "Mateus Oliver",sdf.parse("25/06/1995"), "feminino","787.352.100-10", "mg19.599.003", 
+							"(38)99927-6907",  "rua: batista", "urbana","admin@gmail.com", encoder.encode("123"));
 		p1.addPerfil(Perfil.ADMIN);
 		
 		
-		Profissional p2 = new Profissional(null, "Joana Marques",sdf.parse("25/06/1995"), "Feminino","957.443.730-20", "mg19.599.003", 
-				"(38)99927-6907",  "rua: batista", 17, "veredinha","38689-000","chapada",
-				"minas Gerais", "urbana","","");
+		Professor p2 = new Professor(null, "Joana Marques",sdf.parse("25/06/1995"), "feminino","957.443.730-20", "mg19.599.003", 
+				"(38)99927-6907",  "rua: batista","rural","","");
 		
 		ObservacoesGerais obs1 = new ObservacoesGerais(null, sdf.parse("25/06/1995"), "Campo de Obs.....");
 		
@@ -106,8 +99,8 @@ public class DBService {
 		Cargo c3 = new Cargo(null, "Professor", null);
 		Cargo c4 = new Cargo(null, "Secretario", null);
 		
-		Turma t1 = new Turma(null, "João Batista", a1, null);
-		Turma t2 = new Turma(null, "Borges 2", a1, null);
+		Turma t1 = new Turma(null,"202201MA", "Dom Pedro 2", "matutino", sdf.parse("01/02/2022"), p1);
+		Turma t2 = new Turma(null,"202201VE", "Guimarães Rosa", "vespertino", sdf.parse("01/02/2022"), p2);
 		
 		alunoRepository.saveAll(Arrays.asList(a1));
 		

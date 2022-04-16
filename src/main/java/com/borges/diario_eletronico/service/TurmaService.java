@@ -1,6 +1,5 @@
 package com.borges.diario_eletronico.service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,13 +8,11 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.borges.diario_eletronico.domain.Aluno;
-import com.borges.diario_eletronico.domain.Profissional;
+import com.borges.diario_eletronico.domain.Professor;
 import com.borges.diario_eletronico.domain.Turma;
 import com.borges.diario_eletronico.domain.dtos.TurmaDTO;
 import com.borges.diario_eletronico.repository.TurmaRepository;
 import com.borges.diario_eletronico.service.execeptions.ObjectNotFoundException;
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 
 @Service
@@ -25,10 +22,7 @@ public class TurmaService{
 	private TurmaRepository turmaRepository;
 	
 	@Autowired
-	private ProfissionalService profissionalService;
-
-	@Autowired
-	private AlunoService alunoService;
+	private ProfessorService profissionalService;
 
 	
 	/**
@@ -68,18 +62,19 @@ public class TurmaService{
 	private Turma newTurma(TurmaDTO obj) {
 		
 		Turma turma = new Turma();
-		Profissional professores = profissionalService.findById(obj.getProfessores());
-		Aluno aluno = alunoService.findById(obj.getAluno());
+		Professor professores = profissionalService.findById(obj.getProfessore());
 		
 		if(obj.getId() != null) {
 			turma.setId(obj.getId());
 		}
 		
 		turma.setId(obj.getId());
+		turma.setCodTurma(obj.getCodTurma());
 		turma.setNomeTurma(obj.getNomeTurma());
-		turma.setProfessor(Arrays.asList(professores));
-		turma.setAluno(aluno);
-		
+		turma.setTurno(obj.getTurno());
+		turma.setAnoCriacao(obj.getAnoCriacao());
+		turma.setProfessor(professores);
+		//turma.getProfessor().addAll(Arrays.asList(professores));
 		return turma;
 	}
 	

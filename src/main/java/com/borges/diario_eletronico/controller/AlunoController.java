@@ -37,8 +37,8 @@ public class AlunoController {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<AlunoDTO> findById(@PathVariable Integer id) {
 		
-		AlunoDTO obj = new AlunoDTO(service.findById(id));
-		return ResponseEntity.ok().body(obj);
+		AlunoDTO objDTO = new AlunoDTO(service.findbyId(id));
+		return ResponseEntity.ok().body(objDTO);
 	}
 	
 	/*
@@ -51,17 +51,7 @@ public class AlunoController {
 		return ResponseEntity.ok().body(listAluno);
 
 	}
-	
-	/*
-	 * Atualizar um Aluno
-	 */
-	@PutMapping(value = "/{id}")
-	public ResponseEntity<AlunoDTO> update(@PathVariable Integer id,  @Valid @RequestBody AlunoDTO objDTO) {
-		AlunoDTO newObj = new AlunoDTO(service.update(id, objDTO));
-		
-		return ResponseEntity.ok().body(newObj);
-	}
-	
+
 	/*
 	 * Cria um Aluno
 	 */
@@ -75,6 +65,16 @@ public class AlunoController {
 	}
 	
 	/*
+	 * Atualizar um Aluno
+	 */
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<AlunoDTO> update(@PathVariable Integer id,  @Valid @RequestBody AlunoDTO objDTO) {
+		AlunoDTO newObj = new AlunoDTO(service.update(id, objDTO));
+		
+		return ResponseEntity.ok().body(newObj);
+	}
+		
+	/*
 	 *  Delete um Aluno
 	 */
 	@DeleteMapping(value = "/{id}")
@@ -83,7 +83,6 @@ public class AlunoController {
 		
 		return ResponseEntity.noContent().build();
 	}
-	
 	
 	
 }

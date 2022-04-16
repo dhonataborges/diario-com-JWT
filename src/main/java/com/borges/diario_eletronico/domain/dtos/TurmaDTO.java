@@ -1,7 +1,14 @@
 package com.borges.diario_eletronico.domain.dtos;
 
 import java.io.Serializable;
-import java.util.stream.Collectors;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.borges.diario_eletronico.domain.Turma;
 
@@ -9,13 +16,18 @@ public class TurmaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+	private String codTurma;
 	private String nomeTurma;
-
-	private Integer professores;
-	private Integer aluno;
-
+	private String turno;
+	
+	@NotNull(message = "Campo ANO CRIAÇÃO não pode ser vasio!")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "anoCriacao")
+	private Date anoCriacao;
+	
+	private Integer professore;
 	private String nomeProfessor;
-	private String nomeAluno;
 
 	public TurmaDTO() {
 		super();
@@ -24,11 +36,13 @@ public class TurmaDTO implements Serializable {
 	public TurmaDTO(Turma obj) {
 		super();
 		this.id = obj.getId();
+		this.codTurma = obj.getCodTurma();
 		this.nomeTurma = obj.getNomeTurma();
-		this.aluno = obj.getAluno().getId();
-		this.professores = obj.getProfessor().stream().map(i -> i.getId()).collect(Collectors.toList()).hashCode();
-		this.nomeAluno = obj.getAluno().getNome();
-		this.nomeProfessor = obj.getProfessor().stream().map(i -> i.getNome()).collect(Collectors.toList()).toString();
+		this.turno = obj.getTurno();
+		this.anoCriacao = obj.getAnoCriacao();
+		this.professore = obj.getProfessor().getId();
+		this.nomeProfessor = obj.getProfessor().getNome();
+		//this.nomeProfessor = obj.getProfessor().stream().map(i -> i.getNome()).collect(Collectors.toList()).toString();
 
 	}
 
@@ -40,6 +54,14 @@ public class TurmaDTO implements Serializable {
 		this.id = id;
 	}
 
+	public String getCodTurma() {
+		return codTurma;
+	}
+
+	public void setCodTurma(String codTurma) {
+		this.codTurma = codTurma;
+	}
+
 	public String getNomeTurma() {
 		return nomeTurma;
 	}
@@ -48,20 +70,32 @@ public class TurmaDTO implements Serializable {
 		this.nomeTurma = nomeTurma;
 	}
 
-	public Integer getProfessores() {
-		return professores;
+	public String getTurno() {
+		return turno;
 	}
 
-	public void setProfessores(Integer professores) {
-		this.professores = professores;
+	public void setTurno(String turno) {
+		this.turno = turno;
 	}
 
-	public Integer getAluno() {
-		return aluno;
+	public Date getAnoCriacao() {
+		return anoCriacao;
 	}
 
-	public void setAluno(Integer aluno) {
-		this.aluno = aluno;
+	public void setAnoCriacao(Date anoCriacao) {
+		this.anoCriacao = anoCriacao;
+	}
+
+	public void setNomeProfessor(String nomeProfessor) {
+		this.nomeProfessor = nomeProfessor;
+	}
+
+	public Integer getProfessore() {
+		return professore;
+	}
+
+	public void setProfessore(Integer professore) {
+		this.professore = professore;
 	}
 
 	public String getNomeProfessor() {
@@ -71,13 +105,4 @@ public class TurmaDTO implements Serializable {
 	public void setNomeProfessore(String nomeProfessor) {
 		this.nomeProfessor = nomeProfessor;
 	}
-
-	public String getNomeAluno() {
-		return nomeAluno;
-	}
-
-	public void setNomeAluno(String nomeAluno) {
-		this.nomeAluno = nomeAluno;
-	}
-
 }

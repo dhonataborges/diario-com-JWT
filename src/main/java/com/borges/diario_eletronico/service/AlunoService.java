@@ -6,70 +6,93 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.borges.diario_eletronico.domain.Aluno;
-import com.borges.diario_eletronico.domain.Pessoa;
 import com.borges.diario_eletronico.domain.dtos.AlunoDTO;
 import com.borges.diario_eletronico.repository.AlunoRepository;
-import com.borges.diario_eletronico.repository.PessoaRepository;
+import com.borges.diario_eletronico.service.execeptions.DataIntegratyViolationException;
 import com.borges.diario_eletronico.service.execeptions.ObjectNotFoundException;
 
 @Service
 public class AlunoService {
-
+	
 	@Autowired
 	private AlunoRepository repository;
-	@Autowired
-	private PessoaRepository pessoaRepository;
-	@Autowired
-	private BCryptPasswordEncoder encoder;
 
-	public Aluno findById(Integer id) {
+	/*
+	 * Busca Aluno pelo ID
+	 */
+	public Aluno findbyId(Integer id) {
+		
 		Optional<Aluno> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
+		
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id:" + id + ", Tipo:" + Aluno.class.getName()));
 	}
 
+	/*
+	 * Busca todos os clientes da base de dados
+	 */
 	public List<Aluno> findAll() {
 		return repository.findAll();
 	}
 
-	public Aluno create(@Valid AlunoDTO objDTO) {
-		objDTO.setId(null);
-		objDTO.setSenha(encoder.encode(objDTO.getSenha()));
-		validaPorCpfEEmail(objDTO);
-		Aluno newObj = new Aluno();
-		return repository.save(newObj);
-	}
-	
-	public Aluno update(Integer id, @Valid AlunoDTO objDTO) {
-		objDTO.setId(id);
-		Aluno oldObj = findById(id);
-		
-		if(!objDTO.getSenha().equals(oldObj.getSenha())) {
-			objDTO.setSenha(encoder.encode(objDTO.getSenha()));
+	/*
+	 * Cria um Aluno
+	 */
+	public Aluno create(AlunoDTO objDTO) {
+
+		if (findByCPF(objDTO) != null) {
+			throw new DataIntegratyViolationException("CPF já cadastrado na base de dados!");
 		}
+
+		return repository.save(new Aluno(null, objDTO.getNome(), objDTO.getNascimento(), objDTO.getSexo(), objDTO.getCpf()
+				, objDTO.getRg(), objDTO.getResponsavel(), objDTO.getTelefone(), objDTO.getEndereco(), objDTO.getZona()));
+
+	}
+
+	/*
+	 * Atualizar um Aluno
+	 */
+	public Aluno update(Integer id, @Valid AlunoDTO objDTO) {
 		
-		validaPorCpfEEmail(objDTO);
-		oldObj = new Aluno();
+		Aluno oldObj = findbyId(id);
+
+		if (findByCPF(objDTO) != null && findByCPF(objDTO).getId() != id) {
+			
+			throw new DataIntegratyViolationException("CPF já cadastrado na base de dados!");
+			
+		}
+
+		oldObj.setNome(objDTO.getNome());
+		oldObj.setNascimento(objDTO.getNascimento());
+		oldObj.setSexo(objDTO.getSexo());
+		oldObj.setCpf(objDTO.getCpf());
+		oldObj.setRg(objDTO.getRg());
+		oldObj.setResponsavel(objDTO.getResponsavel());
+		oldObj.setTelefone(objDTO.getTelefone());
+		oldObj.setEndereco(objDTO.getEndereco());
+		oldObj.setZona(objDTO.getZona());
 		return repository.save(oldObj);
 	}
-	
+
+	/*
+	 * Delete um Aluno pelo ID
+	 */
 	public void delete(Integer id) {
 		repository.deleteById(id);
 	}
 
-	private void validaPorCpfEEmail(AlunoDTO objDTO) {
-		Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
-		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
-			throw new DataIntegrityViolationException("CPF já cadastrado no sistema!");
+	/*
+	 * Busca o Aluno pelo CPF
+	 */
+	private Aluno findByCPF(AlunoDTO objDTO) {
+		Aluno obj = repository.findByCPF(objDTO.getCpf());
+
+		if (obj != null) {
+			return obj;
 		}
-		
-		obj = pessoaRepository.findByEmail(objDTO.getEmail());
-		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
-			throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
-		}
+		return null;
 	}
 }
