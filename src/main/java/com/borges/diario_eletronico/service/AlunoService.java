@@ -48,7 +48,7 @@ public class AlunoService {
 		}
 
 		return repository.save(new Aluno(null, objDTO.getNome(), objDTO.getNascimento(), objDTO.getSexo(), objDTO.getCpf()
-				, objDTO.getRg(), objDTO.getResponsavel(), objDTO.getTelefone(), objDTO.getEndereco(), objDTO.getZona()));
+				, objDTO.getRg(), objDTO.getResponsavel(), objDTO.getTelefone(), objDTO.getEndereco(), objDTO.getZona(), objDTO.getSerie()));
 
 	}
 
@@ -74,6 +74,7 @@ public class AlunoService {
 		oldObj.setTelefone(objDTO.getTelefone());
 		oldObj.setEndereco(objDTO.getEndereco());
 		oldObj.setZona(objDTO.getZona());
+		oldObj.setSerie(objDTO.getSerie());
 		return repository.save(oldObj);
 	}
 

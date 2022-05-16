@@ -19,63 +19,64 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.borges.diario_eletronico.domain.Cargo;
-import com.borges.diario_eletronico.service.CargoService;
+import com.borges.diario_eletronico.domain.ProfessorTurma;
+import com.borges.diario_eletronico.domain.dtos.ProfessorTurmaDTO;
+import com.borges.diario_eletronico.service.ProfessorTurmaService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping(value = "/cargos")
-public class CargoController {
+@RequestMapping(value = "/professorTurma")
+public class ProfessorTurmaController {
 	
 	@Autowired
-	private CargoService service;
-	
-	
+	private ProfessorTurmaService service;
+		
 	/**
-	 * Buscar Cargo pelo ID
+	 * Buscar ProfessorTurma pelo ID
 	 */
+	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Cargo> findById(@PathVariable Integer id) {
-		
-		Cargo obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<ProfessorTurmaDTO> findById(@PathVariable Integer id) {
+		ProfessorTurma obj = service.findById(id);
+		return ResponseEntity.ok().body(new ProfessorTurmaDTO(obj));
 	}
 	
+	
 	/*
-	 * Busca todos os Cargo da base de dados
-	 */
+	 * Busca todos os ProfessorTurma da base de dados*/
+	
 	@GetMapping
-	public ResponseEntity<List<Cargo>> findAll() {
-		List<Cargo> listCargo = service.findAll().stream().map(obj -> new Cargo(obj))
-				.collect(Collectors.toList());
-		return ResponseEntity.ok().body(listCargo);
+	public ResponseEntity<List<ProfessorTurmaDTO>> findAll() {
+		List<ProfessorTurma> list = service.findAll();
+		List<ProfessorTurmaDTO> listDTO = list.stream().map(x -> new ProfessorTurmaDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
+	}
 
-	}
-	
 	/*
-	 * Atualizar um Cargo
-	 */
+	 * Atualizar um ProfessorTurma
+	*/
+	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Cargo> update(@PathVariable Integer id, @RequestBody Cargo obj) {
-		Cargo newObj = new Cargo(service.update(id, obj));
-		
-		return ResponseEntity.ok().body(newObj);
+	public ResponseEntity<ProfessorTurmaDTO> update(@PathVariable Integer id, @Valid @RequestBody ProfessorTurmaDTO objDTO) {
+		ProfessorTurma obj = service.update(id, objDTO);
+		return ResponseEntity.ok().body(new ProfessorTurmaDTO(obj));
 	}
 	
 	/*
-	 * Cria um Cargo
+	 * Cria um ProfessorTurma
 	 */
 	@PostMapping
-	public ResponseEntity<Cargo> create(@Valid @RequestBody Cargo obj) {
-		Cargo newObj = service.create(obj);
+	public ResponseEntity<ProfessorTurmaDTO> create(@Valid @RequestBody ProfessorTurmaDTO obj) {
+		ProfessorTurma newObj = service.create(obj);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
 
 		return ResponseEntity.created(uri).build();
 	}
 	
+	
 	/*
-	 *  Delete um Cargo
+	 *  Delete um ProfessorTurma
 	 */
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id){
@@ -83,8 +84,5 @@ public class CargoController {
 		
 		return ResponseEntity.noContent().build();
 	}
-	
-	
-	
 	
 }

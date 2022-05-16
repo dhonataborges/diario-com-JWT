@@ -2,30 +2,28 @@ package com.borges.diario_eletronico.domain.dtos;
 
 import java.io.Serializable;
 
-import com.borges.diario_eletronico.domain.Turma;
+import com.borges.diario_eletronico.domain.Disciplina;
 
-public class TurmaDTO implements Serializable {
+public class DisciplinaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+		
 	private Integer id;
-	
-	private Integer ano_letivo;
-	private Integer sala;
-	private Integer serieNivelSubnivel;
+	private String nome;
+	private String ementa;
+    private Integer serieNivelSubnivel;
 	private String nomeSerieNivelSubnivel;
-	
-	public TurmaDTO() {
+ 	
+	public DisciplinaDTO() {
 		super();
 	}
 	
-	public TurmaDTO(Turma obj) {
+	public DisciplinaDTO(Disciplina obj) {
 		super();
 		this.id = obj.getId();
-		this.ano_letivo = obj.getAno_letivo();
-		this.sala = obj.getSala();
+		this.nome = obj.getNome();
+		this.ementa = obj.getEmenta();
 		this.serieNivelSubnivel = obj.getSerieNivelSubnivel().getId();
 		this.nomeSerieNivelSubnivel = obj.getSerieNivelSubnivel().getDescricao();
-		
 		
 	}
 
@@ -37,20 +35,20 @@ public class TurmaDTO implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getAno_letivo() {
-		return ano_letivo;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setAno_letivo(Integer ano_letivo) {
-		this.ano_letivo = ano_letivo;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public Integer getSala() {
-		return sala;
+	public String getEmenta() {
+		return ementa;
 	}
 
-	public void setSala(Integer sala) {
-		this.sala = sala;
+	public void setEmenta(String ementa) {
+		this.ementa = ementa;
 	}
 
 	public Integer getSerieNivelSubnivel() {

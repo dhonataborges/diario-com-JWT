@@ -1,48 +1,51 @@
 package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "disciplina")
 public class Disciplina implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-
-	@Column(unique = true)
-	private String nomeDisciplina;
-
-	private String professores;
-
-	//@ManyToMany(mappedBy = "disciplinas", cascade = CascadeType.ALL)
-	private String alunos;
+	private String nome;
+	private String ementa;
+	
+	@OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<ProfessorTurmaDisciplina> professorTurmaDisciplina;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "serieNivelSubnivel_id")
+    private SerieNivelSubnivel serieNivelSubnivel;
+ 
 
 	public Disciplina() {
 		super();
 	}
-
-	public Disciplina(Integer id, String nomeDisciplina, String professores, String alunos) {
+	
+	public Disciplina(Integer id, String nome, String ementa, List<ProfessorTurmaDisciplina> professorTurmaDisciplina,
+			SerieNivelSubnivel serieNivelSubnivel) {
 		super();
 		this.id = id;
-		this.nomeDisciplina = nomeDisciplina;
-		this.professores = professores;
-		this.alunos = alunos;
-	}
-
-	public Disciplina(Disciplina obj) {
-		super();
-		this.id = obj.getId();
-		this.nomeDisciplina = obj.getNomeDisciplina();
-		this.professores = obj.getProfessores();
-		this.alunos = obj.getAlunos();
+		this.nome = nome;
+		this.ementa = ementa;
+		this.professorTurmaDisciplina = professorTurmaDisciplina;
+		this.serieNivelSubnivel = serieNivelSubnivel;
 	}
 
 	@Override
@@ -70,28 +73,36 @@ public class Disciplina implements Serializable {
 		this.id = id;
 	}
 
-	public String getNomeDisciplina() {
-		return nomeDisciplina;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNomeDisciplina(String nomeDisciplina) {
-		this.nomeDisciplina = nomeDisciplina;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getProfessores() {
-		return professores;
+	public String getEmenta() {
+		return ementa;
 	}
 
-	public void setProfessores(String professores) {
-		this.professores = professores;
+	public void setEmenta(String ementa) {
+		this.ementa = ementa;
 	}
 
-	public String getAlunos() {
-		return alunos;
+	public List<ProfessorTurmaDisciplina> getProfessorTurmaDisciplina() {
+		return professorTurmaDisciplina;
 	}
 
-	public void setAlunos(String alunos) {
-		this.alunos = alunos;
+	public void setProfessorTurmaDisciplina(List<ProfessorTurmaDisciplina> professorTurmaDisciplina) {
+		this.professorTurmaDisciplina = professorTurmaDisciplina;
 	}
 
+	public SerieNivelSubnivel getSerieNivelSubnivel() {
+		return serieNivelSubnivel;
+	}
+
+	public void setSerieNivelSubnivel(SerieNivelSubnivel serieNivelSubnivel) {
+		this.serieNivelSubnivel = serieNivelSubnivel;
+	}
+	
 }

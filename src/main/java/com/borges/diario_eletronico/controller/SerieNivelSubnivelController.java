@@ -19,56 +19,56 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.borges.diario_eletronico.domain.Turma;
-import com.borges.diario_eletronico.domain.dtos.TurmaDTO;
-import com.borges.diario_eletronico.service.TurmaService;
+import com.borges.diario_eletronico.domain.SerieNivelSubnivel;
+import com.borges.diario_eletronico.domain.dtos.SerieNivelSubnivelDTO;
+import com.borges.diario_eletronico.service.SerieNivelSubnivelService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping(value = "/turmas")
-public class TurmaController {
+@RequestMapping(value = "/series")
+public class SerieNivelSubnivelController {
 	
 	@Autowired
-	private TurmaService service;
+	private SerieNivelSubnivelService service;
 	
 	
 	/**
-	 * Buscar Turma pelo ID
-	 */
+	 * Buscar SerieNivelSubnivel pelo ID
+	 * */
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<TurmaDTO> findById(@PathVariable Integer id) {
-		Turma obj = service.findById(id);
-		return ResponseEntity.ok().body(new TurmaDTO(obj));
+	public ResponseEntity<SerieNivelSubnivelDTO> findById(@PathVariable Integer id) {
+		SerieNivelSubnivel obj = service.findById(id);
+		return ResponseEntity.ok().body(new SerieNivelSubnivelDTO(obj));
 	}
 	
 	
 	/*
-	 * Busca todos os Turma da base de dados*/
-	
+	 * Busca todos os SerieNivelSubnivel da base de dados*/
+	 	
 	@GetMapping
-	public ResponseEntity<List<TurmaDTO>> findAll() {
-		List<Turma> list = service.findAll();
-		List<TurmaDTO> listDTO = list.stream().map(x -> new TurmaDTO(x)).collect(Collectors.toList());
+	public ResponseEntity<List<SerieNivelSubnivelDTO>> findAll() {
+		List<SerieNivelSubnivel> list = service.findAll();
+		List<SerieNivelSubnivelDTO> listDTO = list.stream().map(x -> new SerieNivelSubnivelDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
 
 	/*
-	 * Atualizar um Turma
+	 * Atualizar um Serie
 	*/
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<TurmaDTO> update(@PathVariable Integer id, @Valid @RequestBody TurmaDTO objDTO) {
-		Turma obj = service.update(id, objDTO);
-		return ResponseEntity.ok().body(new TurmaDTO(obj));
+	public ResponseEntity<SerieNivelSubnivelDTO> update(@PathVariable Integer id, @Valid @RequestBody SerieNivelSubnivelDTO objDTO) {
+		SerieNivelSubnivel obj = service.update(id, objDTO);
+		return ResponseEntity.ok().body(new SerieNivelSubnivelDTO(obj));
 	}
 	
 	/*
-	 * Cria um Turma
+	 * Cria um SerieNivelSubnivel
 	 */
 	@PostMapping
-	public ResponseEntity<TurmaDTO> create(@Valid @RequestBody TurmaDTO obj) {
-		Turma newObj = service.create(obj);
+	public ResponseEntity<SerieNivelSubnivelDTO> create(@Valid @RequestBody SerieNivelSubnivelDTO obj) {
+		SerieNivelSubnivel newObj = service.create(obj);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
 
@@ -77,7 +77,7 @@ public class TurmaController {
 	
 	
 	/*
-	 *  Delete um Turma
+	 *  Delete um SerieNivelSubnivel
 	 */
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id){
@@ -85,5 +85,8 @@ public class TurmaController {
 		
 		return ResponseEntity.noContent().build();
 	}
-		
+	
+	
+	
+	
 }

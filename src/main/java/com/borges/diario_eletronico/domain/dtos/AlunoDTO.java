@@ -52,6 +52,9 @@ public class AlunoDTO implements Serializable{
 
 	@NotBlank(message = "Campo ZONA não pode ser vasio!")
 	private String zona;
+	
+	@NotBlank(message = "Campo SÉRIE não pode ser vasio!")
+	private String serie;
 
 	public AlunoDTO() {
 		super();
@@ -70,6 +73,7 @@ public class AlunoDTO implements Serializable{
 		this.telefone = obj.getTelefone();
 		this.endereco = obj.getEndereco();
 		this.zona = obj.getZona();
+		this.serie =  obj.getSerie();
 	}
 
 	public Integer getId() {
@@ -151,5 +155,13 @@ public class AlunoDTO implements Serializable{
 	public void setZona(String zona) {
 		this.zona = zona;
 	}
-		
+
+	public String getSerie() {
+		return serie;
+	}
+
+	public void setSerie(String serie) {
+		this.serie = serie;
+	}
+			
 	}

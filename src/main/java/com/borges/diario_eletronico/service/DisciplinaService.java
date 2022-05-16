@@ -1,12 +1,16 @@
-package com.borges.diario_eletronico.service;
+ package com.borges.diario_eletronico.service;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.borges.diario_eletronico.domain.Disciplina;
+import com.borges.diario_eletronico.domain.SerieNivelSubnivel;
+import com.borges.diario_eletronico.domain.dtos.DisciplinaDTO;
 import com.borges.diario_eletronico.repository.DisciplinaRepository;
 import com.borges.diario_eletronico.service.execeptions.ObjectNotFoundException;
 
@@ -15,59 +19,50 @@ import com.borges.diario_eletronico.service.execeptions.ObjectNotFoundException;
 public class DisciplinaService{
 	
 	@Autowired
-	private DisciplinaRepository disciplinaRepository;
+	private DisciplinaRepository repository;
 	
-	/**
-	 * Buscar Disciplina pelo ID
-	 */
+	@Autowired
+	private SerieNivelSubnivelService serieService;
+	
 	public Disciplina findById(Integer id) {
-		
-		Optional<Disciplina> obj = disciplinaRepository.findById(id);
-		
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id:" + id + ", Tipo:" + Disciplina.class.getName()));
+		Optional<Disciplina> obj = repository.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
+	}
+
+	public List<Disciplina> findAll() {
+		return repository.findAll();
+	}
+
+	public Disciplina create(DisciplinaDTO objDTO) {
+		return repository.save(newDisciplina(objDTO));
 	}
 	
-	/*
-	 * Busca todos os Usuarios da base de dados
-	 */
-	public List<Disciplina> findAll(){
-		return disciplinaRepository.findAll();
-	}
-	
-	/*
-	 * Atualizar um Disciplina
-	 */
-	public Disciplina update(Integer id, Disciplina obj) {
-		
+	public Disciplina update(Integer id, @Valid DisciplinaDTO objDTO) {
+		objDTO.setId(id);
 		Disciplina oldObj = findById(id);
-
-			
-		oldObj.setId(obj.getId());
-		oldObj.setNomeDisciplina(obj.getNomeDisciplina());
-		oldObj.setProfessores(obj.getProfessores());
-		oldObj.setAlunos(obj.getAlunos());
-		
-		return disciplinaRepository.save(oldObj);
-	
+		oldObj = newDisciplina(objDTO);
+		return repository.save(oldObj);
 	}
 	
-	/*
-	 * Cria um Disciplina
-	 */
-	public Disciplina create(Disciplina obj) {
+	private Disciplina newDisciplina(DisciplinaDTO obj) {
+		SerieNivelSubnivel serie = serieService.findById(obj.getSerieNivelSubnivel());
 		
-		return disciplinaRepository.save(new Disciplina(null, obj.getNomeDisciplina(), obj.getProfessores(), obj.getAlunos()));
-
+		Disciplina disciplina = new Disciplina();
+		if(obj.getId() != null) {
+			disciplina.setId(obj.getId());
+		}
+		
+		disciplina.setNome(obj.getNome());
+		disciplina.setEmenta(obj.getEmenta());
+		disciplina.setSerieNivelSubnivel(serie);
+		
+		return disciplina;
 	}
 	
-	/*
-	 * Delete um Disciplina pelo ID
-	 */
 	public void delete(Integer id) {
 		
-		disciplinaRepository.deleteById(id);
-		
+		repository.deleteById(id);
 	}
+	
 	
 }

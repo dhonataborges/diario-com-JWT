@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.borges.diario_eletronico.domain.Disciplina;
+import com.borges.diario_eletronico.domain.dtos.DisciplinaDTO;
 import com.borges.diario_eletronico.service.DisciplinaService;
 
 @CrossOrigin("*")
@@ -29,50 +30,50 @@ public class DisciplinaController {
 	
 	@Autowired
 	private DisciplinaService service;
-	
-	
+		
 	/**
 	 * Buscar Disciplina pelo ID
 	 */
+	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Disciplina> findById(@PathVariable Integer id) {
-		
+	public ResponseEntity<DisciplinaDTO> findById(@PathVariable Integer id) {
 		Disciplina obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(new DisciplinaDTO(obj));
 	}
+	
 	
 	/*
-	 * Busca todos os Disciplina da base de dados
-	 */
-	@GetMapping
-	public ResponseEntity<List<Disciplina>> findAll() {
-		List<Disciplina> listDisciplina = service.findAll().stream().map(obj -> new Disciplina(obj))
-				.collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDisciplina);
-
-	}
+	 * Busca todos os Disciplina da base de dados*/
 	
+	@GetMapping
+	public ResponseEntity<List<DisciplinaDTO>> findAll() {
+		List<Disciplina> list = service.findAll();
+		List<DisciplinaDTO> listDTO = list.stream().map(x -> new DisciplinaDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
+	}
+
 	/*
 	 * Atualizar um Disciplina
-	 */
+	*/
+	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Disciplina> update(@PathVariable Integer id, @RequestBody Disciplina obj) {
-		Disciplina newObj = new Disciplina(service.update(id, obj));
-		
-		return ResponseEntity.ok().body(newObj);
+	public ResponseEntity<DisciplinaDTO> update(@PathVariable Integer id, @Valid @RequestBody DisciplinaDTO objDTO) {
+		Disciplina obj = service.update(id, objDTO);
+		return ResponseEntity.ok().body(new DisciplinaDTO(obj));
 	}
 	
 	/*
 	 * Cria um Disciplina
 	 */
 	@PostMapping
-	public ResponseEntity<Disciplina> create(@Valid @RequestBody Disciplina obj) {
+	public ResponseEntity<DisciplinaDTO> create(@Valid @RequestBody DisciplinaDTO obj) {
 		Disciplina newObj = service.create(obj);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
 
 		return ResponseEntity.created(uri).build();
 	}
+	
 	
 	/*
 	 *  Delete um Disciplina
@@ -83,8 +84,5 @@ public class DisciplinaController {
 		
 		return ResponseEntity.noContent().build();
 	}
-	
-	
-	
 	
 }

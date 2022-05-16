@@ -1,12 +1,16 @@
 package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.borges.diario_eletronico.domain.enums.Perfil;
 
@@ -14,8 +18,12 @@ import com.borges.diario_eletronico.domain.enums.Perfil;
 public class Professor extends Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "professor")
-	private List<Turma> turma = new ArrayList<>();
+	@OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<ProfessorTurma> professorTurma;
+	
+	@OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<ProfessorTurmaDisciplina> professorTurmaDisciplina;
 
 	public Professor() {
 		super();
@@ -28,13 +36,20 @@ public class Professor extends Pessoa implements Serializable {
 
 	}
 
-	public List<Turma> getTurma() {
-		return turma;
+	public List<ProfessorTurma> getProfessorTurma() {
+		return professorTurma;
 	}
 
-	public void setTurma(List<Turma> turma) {
-		this.turma = turma;
+	public void setProfessorTurma(List<ProfessorTurma> professorTurma) {
+		this.professorTurma = professorTurma;
 	}
 
-	
+	public List<ProfessorTurmaDisciplina> getProfessorTurmaDisciplina() {
+		return professorTurmaDisciplina;
+	}
+
+	public void setProfessorTurmaDisciplina(List<ProfessorTurmaDisciplina> professorTurmaDisciplina) {
+		this.professorTurmaDisciplina = professorTurmaDisciplina;
+	}
+		
 }

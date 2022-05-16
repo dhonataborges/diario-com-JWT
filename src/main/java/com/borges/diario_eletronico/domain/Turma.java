@@ -1,57 +1,56 @@
 package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
+@Table(name = "turma")
 public class Turma implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String codTurma;
-	private String nomeTurma;
-	private String turno;
-	private Date anoCriacao;
+	private Integer ano_letivo;
+	private Integer sala;
 	
-	@ManyToOne
-	@JoinColumn(name = "professsor_id")
-	private Professor professor;
-
-	/*@ManyToOne()
-	@JoinColumn(name = "aluno_id")
-	private Aluno aluno;*/
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "serie_nivel_subnivel_id")
+	private SerieNivelSubnivel serieNivelSubnivel;
 	
-	/*@JsonManagedReference 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "Professor_Turma", joinColumns = { @JoinColumn(name = "professor_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "turma_id") })
-	private List<Profissional> professor = new ArrayList<>();*/
-
+	@OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<ProfessorTurma> professorTurma;
+	
+	@OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<Aluno> aluno;
+			
 	public Turma() {
 		super();
 	}
-	
-	public Turma(Integer id, String codTurma, String nomeTurma, String turno, Date anoCriacao,
-			Professor professor) {
+
+	public Turma(Integer id, Integer ano_letivo, Integer sala, SerieNivelSubnivel serieNivelSubnivel) {
 		super();
 		this.id = id;
-		this.codTurma = codTurma;
-		this.nomeTurma = nomeTurma;
-		this.turno = turno;
-		this.anoCriacao = anoCriacao;
-		this.professor = professor;
+		this.ano_letivo = ano_letivo;
+		this.sala = sala;
+		this.serieNivelSubnivel = serieNivelSubnivel;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -78,44 +77,44 @@ public class Turma implements Serializable {
 		this.id = id;
 	}
 
-	public String getCodTurma() {
-		return codTurma;
+	public Integer getAno_letivo() {
+		return ano_letivo;
 	}
 
-	public void setCodTurma(String codTurma) {
-		this.codTurma = codTurma;
+	public void setAno_letivo(Integer ano_letivo) {
+		this.ano_letivo = ano_letivo;
 	}
 
-	public String getNomeTurma() {
-		return nomeTurma;
+	public Integer getSala() {
+		return sala;
 	}
 
-	public void setNomeTurma(String nomeTurma) {
-		this.nomeTurma = nomeTurma;
+	public void setSala(Integer sala) {
+		this.sala = sala;
 	}
 
-	public String getTurno() {
-		return turno;
+	public SerieNivelSubnivel getSerieNivelSubnivel() {
+		return serieNivelSubnivel;
 	}
 
-	public void setTurno(String turno) {
-		this.turno = turno;
+	public void setSerieNivelSubnivel(SerieNivelSubnivel serieNivelSubnivel) {
+		this.serieNivelSubnivel = serieNivelSubnivel;
 	}
 
-	public Date getAnoCriacao() {
-		return anoCriacao;
+	public List<ProfessorTurma> getProfessorTurma() {
+		return professorTurma;
 	}
 
-	public void setAnoCriacao(Date anoCriacao) {
-		this.anoCriacao = anoCriacao;
+	public void setProfessorTurma(List<ProfessorTurma> professorTurma) {
+		this.professorTurma = professorTurma;
 	}
 
-	public Professor getProfessor() {
-		return professor;
+	public List<Aluno> getAluno() {
+		return aluno;
 	}
 
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
+	public void setAluno(List<Aluno> aluno) {
+		this.aluno = aluno;
 	}
-	
+			
 }

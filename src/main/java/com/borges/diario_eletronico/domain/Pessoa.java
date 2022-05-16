@@ -13,12 +13,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.borges.diario_eletronico.domain.enums.Perfil;
 
 @Entity
+@Table(name = "professor")
 public abstract class Pessoa implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
