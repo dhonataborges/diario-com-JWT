@@ -2,14 +2,17 @@ package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +35,9 @@ public class ProfessorTurma implements Serializable{
 	private Date data_atribuicao;
 	private Boolean status;
 	
+	@OneToMany(mappedBy = "professorTurma", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<ProfessorTurmaDisciplina> professorTurmaDisciplina;
+		
 	public ProfessorTurma() {
 		super();
 	}
@@ -84,5 +90,13 @@ public class ProfessorTurma implements Serializable{
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-	
+
+	public List<ProfessorTurmaDisciplina> getProfessorTurmaDisciplina() {
+		return professorTurmaDisciplina;
+	}
+
+	public void setProfessorTurmaDisciplina(List<ProfessorTurmaDisciplina> professorTurmaDisciplina) {
+		this.professorTurmaDisciplina = professorTurmaDisciplina;
+	}
+		
 }

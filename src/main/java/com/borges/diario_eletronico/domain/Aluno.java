@@ -35,17 +35,16 @@ public class Aluno implements Serializable {
 	private String telefone;
 	private String endereco;
 	private String zona;
-	private String serie;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "turma_id")
+	@ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+	@JoinColumn(name = "turma_id")	
 	private Turma turma;
 	
-	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "aluno", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<AlunoAtividade> alunoAtividade;
 	
-	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "aluno", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<AlunoAula> alunoAula;
 			
@@ -65,7 +64,6 @@ public class Aluno implements Serializable {
 		this.telefone = telefone;
 		this.endereco = endereco;		
 		this.zona = zona;
-		this.serie = serie;
 	}
 	
 	@Override
@@ -165,12 +163,7 @@ public class Aluno implements Serializable {
 	public void setZona(String zona) {
 		this.zona = zona;
 	}
-	public String getSerie() {
-		return serie;
-	}
-	public void setSerie(String serie) {
-		this.serie = serie;
-	}
+	
 	public List<AlunoAtividade> getAlunoAtividade() {
 		return alunoAtividade;
 	}

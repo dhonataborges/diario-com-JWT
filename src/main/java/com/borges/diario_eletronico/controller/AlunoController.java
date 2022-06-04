@@ -31,58 +31,36 @@ public class AlunoController {
 	@Autowired
 	private AlunoService service;
 	
-	/**
-	 * Buscar Aluno pelo ID
-	 */
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<AlunoDTO> findById(@PathVariable Integer id) {
-		
-		AlunoDTO objDTO = new AlunoDTO(service.findbyId(id));
-		return ResponseEntity.ok().body(objDTO);
+		Aluno obj = service.findById(id);
+		return ResponseEntity.ok().body(new AlunoDTO(obj));
 	}
-	
-	/*
-	 * Busca todos os Aluno da base de dados
-	 */
+
 	@GetMapping
 	public ResponseEntity<List<AlunoDTO>> findAll() {
-		List<AlunoDTO> listAluno = service.findAll().stream().map(obj -> new AlunoDTO(obj))
-				.collect(Collectors.toList());
-		return ResponseEntity.ok().body(listAluno);
-
+		List<Aluno> list = service.findAll();
+		List<AlunoDTO> listDTO = list.stream().map(obj -> new AlunoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 
-	/*
-	 * Cria um Aluno
-	 */
 	@PostMapping
 	public ResponseEntity<AlunoDTO> create(@Valid @RequestBody AlunoDTO objDTO) {
 		Aluno newObj = service.create(objDTO);
-
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
-
 		return ResponseEntity.created(uri).build();
 	}
-	
-	/*
-	 * Atualizar um Aluno
-	 */
+
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<AlunoDTO> update(@PathVariable Integer id,  @Valid @RequestBody AlunoDTO objDTO) {
-		AlunoDTO newObj = new AlunoDTO(service.update(id, objDTO));
-		
-		return ResponseEntity.ok().body(newObj);
+	public ResponseEntity<AlunoDTO> update(@PathVariable Integer id, @Valid @RequestBody AlunoDTO objDTO) {
+		Aluno obj = service.update(id, objDTO);
+		return ResponseEntity.ok().body(new AlunoDTO(obj));
 	}
-		
-	/*
-	 *  Delete um Aluno
-	 */
+
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Integer id){
+	public ResponseEntity<AlunoDTO> delete(@PathVariable Integer id) {
 		service.delete(id);
-		
 		return ResponseEntity.noContent().build();
 	}
-	
-	
+
 }

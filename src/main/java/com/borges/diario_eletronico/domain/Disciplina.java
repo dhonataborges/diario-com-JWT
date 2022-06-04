@@ -21,7 +21,7 @@ public class Disciplina implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String ementa;
@@ -38,13 +38,11 @@ public class Disciplina implements Serializable {
 		super();
 	}
 	
-	public Disciplina(Integer id, String nome, String ementa, List<ProfessorTurmaDisciplina> professorTurmaDisciplina,
-			SerieNivelSubnivel serieNivelSubnivel) {
+	public Disciplina(Integer id, String nome, String ementa, SerieNivelSubnivel serieNivelSubnivel) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.ementa = ementa;
-		this.professorTurmaDisciplina = professorTurmaDisciplina;
 		this.serieNivelSubnivel = serieNivelSubnivel;
 	}
 

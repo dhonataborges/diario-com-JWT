@@ -9,7 +9,7 @@ public class TurmaDTO implements Serializable {
 	
 	private Integer id;
 	
-	private Integer ano_letivo;
+	private Integer anoLetivo;
 	private Integer sala;
 	private Integer serieNivelSubnivel;
 	private String nomeSerieNivelSubnivel;
@@ -21,7 +21,7 @@ public class TurmaDTO implements Serializable {
 	public TurmaDTO(Turma obj) {
 		super();
 		this.id = obj.getId();
-		this.ano_letivo = obj.getAno_letivo();
+		this.anoLetivo = obj.getAnoLetivo();
 		this.sala = obj.getSala();
 		this.serieNivelSubnivel = obj.getSerieNivelSubnivel().getId();
 		this.nomeSerieNivelSubnivel = obj.getSerieNivelSubnivel().getDescricao();
@@ -37,12 +37,12 @@ public class TurmaDTO implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getAno_letivo() {
-		return ano_letivo;
+	public Integer getAnoLetivo() {
+		return anoLetivo;
 	}
 
-	public void setAno_letivo(Integer ano_letivo) {
-		this.ano_letivo = ano_letivo;
+	public void setAnoLetivo(Integer anoLetivo) {
+		this.anoLetivo = anoLetivo;
 	}
 
 	public Integer getSala() {

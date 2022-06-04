@@ -32,20 +32,12 @@ public class TurmaController {
 	private TurmaService service;
 	
 	
-	/**
-	 * Buscar Turma pelo ID
-	 */
-	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<TurmaDTO> findById(@PathVariable Integer id) {
 		Turma obj = service.findById(id);
 		return ResponseEntity.ok().body(new TurmaDTO(obj));
 	}
-	
-	
-	/*
-	 * Busca todos os Turma da base de dados*/
-	
+
 	@GetMapping
 	public ResponseEntity<List<TurmaDTO>> findAll() {
 		List<Turma> list = service.findAll();
@@ -53,32 +45,20 @@ public class TurmaController {
 		return ResponseEntity.ok().body(listDTO);
 	}
 
-	/*
-	 * Atualizar um Turma
-	*/
-	
+	@PostMapping
+	public ResponseEntity<TurmaDTO> create(@Valid @RequestBody TurmaDTO objDTO) {
+		Turma obj = service.create(objDTO);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
+
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<TurmaDTO> update(@PathVariable Integer id, @Valid @RequestBody TurmaDTO objDTO) {
 		Turma obj = service.update(id, objDTO);
 		return ResponseEntity.ok().body(new TurmaDTO(obj));
 	}
-	
-	/*
-	 * Cria um Turma
-	 */
-	@PostMapping
-	public ResponseEntity<TurmaDTO> create(@Valid @RequestBody TurmaDTO obj) {
-		Turma newObj = service.create(obj);
 
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
-
-		return ResponseEntity.created(uri).build();
-	}
 	
-	
-	/*
-	 *  Delete um Turma
-	 */
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id){
 		service.delete(id);

@@ -10,7 +10,7 @@ public class SerieNivelSubnivelDTO implements Serializable{
 	private Integer id;
 	private Integer nivel;
 	private Integer subnivel;
-	private String descricao;	
+	private String descricao;
 		
 	public SerieNivelSubnivelDTO() {
 		super();
@@ -48,5 +48,6 @@ public class SerieNivelSubnivelDTO implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
 	
 }

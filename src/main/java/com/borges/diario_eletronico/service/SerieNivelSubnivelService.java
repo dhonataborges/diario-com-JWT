@@ -20,32 +20,22 @@ public class SerieNivelSubnivelService {
 	@Autowired
 	private SerieNivelSubnivelRepository repository;
 		
-	/**
-	 * Buscar SerieNivelSubnivel pelo ID
-	 **/	
+
 	public SerieNivelSubnivel findById(Integer id) {
 		Optional<SerieNivelSubnivel> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
 	}
 	
-	/*
-	 * Busca todos os Cargos da base de dados
-	 */
 	public List<SerieNivelSubnivel> findAll(){
 		return repository.findAll();
 	}
 	
-	/*
-	 * 	Cria um tecnico
-	 */
-	public SerieNivelSubnivel create(SerieNivelSubnivelDTO objDTO) {
+public SerieNivelSubnivel create(SerieNivelSubnivelDTO objDTO) {
 		
 		return repository.save(new SerieNivelSubnivel(null, objDTO.getNivel(), objDTO.getSubnivel(), objDTO.getDescricao()));
 		
 	}
-/*
- * 	Atualiza um SerieNivelSubnivel
- */
+
 	public SerieNivelSubnivel update(Integer id, @Valid SerieNivelSubnivelDTO objDto) {
 		
 		SerieNivelSubnivel oldObj = findById(id);
@@ -56,10 +46,7 @@ public class SerieNivelSubnivelService {
 		return repository.save(oldObj);
 		
 	}
-	
-	/*
-	 * Delete um SerieNivelSubnivel pelo ID
-	 */
+
 	public void delete(Integer id) {
 		
 		repository.deleteById(id);

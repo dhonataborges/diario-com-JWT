@@ -32,7 +32,7 @@ public class ProfessorTurmaDTO implements Serializable{
 		super();
 		this.id = obj.getId();
 		this.turma = obj.getTurma().getId();
-		this.anoTurma = obj.getTurma().getAno_letivo();
+		this.anoTurma = obj.getTurma().getAnoLetivo();
 		this.professor = obj.getProfessor().getId();
 		this.nomeProfessor = obj.getProfessor().getNome();
 		this.dataAtribuicao = obj.getData_atribuicao();

@@ -1,11 +1,11 @@
 package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
-import java.time.Year;
 import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "professor_turma_disciplina")
 public class ProfessorTurmaDisciplina implements Serializable{
@@ -30,19 +32,23 @@ public class ProfessorTurmaDisciplina implements Serializable{
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "professor_turma_id")
-	private Professor professor;
+	private ProfessorTurma professorTurma;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "disciplina_id")
 	private Disciplina disciplina;
 	
 	private Integer bimestre;
-	private Year ano_letivo;
 	
+	@Column(name = "ano_letivo")
+	private Integer anoLetivo;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "professorTurmaDisciplina", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Aula> aula;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "professorTurmaDisciplina", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Atividade> atividade;
@@ -51,16 +57,14 @@ public class ProfessorTurmaDisciplina implements Serializable{
 		super();
 	}
 
-	public ProfessorTurmaDisciplina(Integer id, Professor professor, Disciplina disciplina, Integer bimestre,
-			Year ano_letivo, List<Aula> aula, List<Atividade> atividade) {
+	public ProfessorTurmaDisciplina(Integer id, ProfessorTurma professorTurma, Disciplina disciplina, Integer bimestre,
+			Integer anoLetivo) {
 		super();
 		this.id = id;
-		this.professor = professor;
+		this.professorTurma = professorTurma;
 		this.disciplina = disciplina;
 		this.bimestre = bimestre;
-		this.ano_letivo = ano_letivo;
-		this.aula = aula;
-		this.atividade = atividade;
+		this.anoLetivo = anoLetivo;
 	}
 
 	@Override
@@ -88,12 +92,12 @@ public class ProfessorTurmaDisciplina implements Serializable{
 		this.id = id;
 	}
 
-	public Professor getProfessor() {
-		return professor;
+	public ProfessorTurma getProfessorTurma() {
+		return professorTurma;
 	}
 
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
+	public void setProfessorTurma(ProfessorTurma professorTurma) {
+		this.professorTurma = professorTurma;
 	}
 
 	public Disciplina getDisciplina() {
@@ -112,12 +116,12 @@ public class ProfessorTurmaDisciplina implements Serializable{
 		this.bimestre = bimestre;
 	}
 
-	public Year getAno_letivo() {
-		return ano_letivo;
+	public Integer getAnoLetivo() {
+		return anoLetivo;
 	}
 
-	public void setAno_letivo(Year ano_letivo) {
-		this.ano_letivo = ano_letivo;
+	public void setAnoLetivo(Integer anoLetivo) {
+		this.anoLetivo = anoLetivo;
 	}
 
 	public List<Aula> getAula() {

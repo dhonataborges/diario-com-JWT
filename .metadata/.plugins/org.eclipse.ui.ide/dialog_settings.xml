@@ -43,6 +43,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Meus Projetos\Projeto TCC\diario_atual"/>
 			<item value="C:\Users\dhona\Documents\Meus Projetos\Projeto TCC\Diario\.metadata"/>
 			<item value="C:\Users\dhona\Documents\Meus Projetos\Projeto TCC\Diario"/>
 			<item value="C:\Users\dhona\Documents\Meus Projetos\Projeto TCC\Diario\diario_eletronico"/>

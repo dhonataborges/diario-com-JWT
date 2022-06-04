@@ -12,17 +12,17 @@ import com.borges.diario_eletronico.domain.SerieNivelSubnivel;
 import com.borges.diario_eletronico.domain.Turma;
 import com.borges.diario_eletronico.domain.dtos.TurmaDTO;
 import com.borges.diario_eletronico.repository.TurmaRepository;
+import com.borges.diario_eletronico.service.execeptions.DataIntegratyViolationException;
 import com.borges.diario_eletronico.service.execeptions.ObjectNotFoundException;
 
-
 @Service
-public class TurmaService{
-	
+public class TurmaService {
+
 	@Autowired
 	private TurmaRepository repository;
 	@Autowired
 	private SerieNivelSubnivelService serieService;
-	
+
 	public Turma findById(Integer id) {
 		Optional<Turma> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
@@ -35,32 +35,43 @@ public class TurmaService{
 	public Turma create(TurmaDTO objDTO) {
 		return repository.save(newTurma(objDTO));
 	}
-	
+
 	public Turma update(Integer id, @Valid TurmaDTO objDTO) {
 		objDTO.setId(id);
 		Turma oldObj = findById(id);
 		oldObj = newTurma(objDTO);
 		return repository.save(oldObj);
 	}
-	
+
 	private Turma newTurma(TurmaDTO obj) {
 		SerieNivelSubnivel serie = serieService.findById(obj.getSerieNivelSubnivel());
-		
+
 		Turma turma = new Turma();
-		if(obj.getId() != null) {
+		if (obj.getId() != null) {
 			turma.setId(obj.getId());
 		}
-		
-		turma.setAno_letivo(obj.getAno_letivo());
+
+		turma.setAnoLetivo(obj.getAnoLetivo());
 		turma.setSala(obj.getSala());
 		turma.setSerieNivelSubnivel(serie);
-		
+
 		return turma;
 	}
-	
+
 	public void delete(Integer id) {
-		
+
+		Turma obj = findById(id);
+
+		if (obj.getAluno().size() > 0) {
+
+			throw new DataIntegratyViolationException("Turma possui alunos, não pode ser deletada!");
+
+		} if (obj.getProfessorTurma().size() > 0) {
+
+			throw new DataIntegratyViolationException("Turma possui professor, não pode ser deletad!");
+
+		} 
 		repository.deleteById(id);
 	}
-	
+
 }

@@ -32,30 +32,18 @@ public class SerieNivelSubnivelController {
 	private SerieNivelSubnivelService service;
 	
 	
-	/**
-	 * Buscar SerieNivelSubnivel pelo ID
-	 * */
-	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<SerieNivelSubnivelDTO> findById(@PathVariable Integer id) {
 		SerieNivelSubnivel obj = service.findById(id);
 		return ResponseEntity.ok().body(new SerieNivelSubnivelDTO(obj));
 	}
 	
-	
-	/*
-	 * Busca todos os SerieNivelSubnivel da base de dados*/
-	 	
 	@GetMapping
 	public ResponseEntity<List<SerieNivelSubnivelDTO>> findAll() {
 		List<SerieNivelSubnivel> list = service.findAll();
 		List<SerieNivelSubnivelDTO> listDTO = list.stream().map(x -> new SerieNivelSubnivelDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
-
-	/*
-	 * Atualizar um Serie
-	*/
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<SerieNivelSubnivelDTO> update(@PathVariable Integer id, @Valid @RequestBody SerieNivelSubnivelDTO objDTO) {
@@ -63,9 +51,6 @@ public class SerieNivelSubnivelController {
 		return ResponseEntity.ok().body(new SerieNivelSubnivelDTO(obj));
 	}
 	
-	/*
-	 * Cria um SerieNivelSubnivel
-	 */
 	@PostMapping
 	public ResponseEntity<SerieNivelSubnivelDTO> create(@Valid @RequestBody SerieNivelSubnivelDTO obj) {
 		SerieNivelSubnivel newObj = service.create(obj);
@@ -75,10 +60,6 @@ public class SerieNivelSubnivelController {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	
-	/*
-	 *  Delete um SerieNivelSubnivel
-	 */
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id){
 		service.delete(id);

@@ -29,12 +29,11 @@ public class SerieNivelSubnivel implements Serializable{
 	private Integer subnivel;
 	private String descricao;
 	
-	@OneToMany(mappedBy = "serieNivelSubnivel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "serieNivelSubnivel", cascade = CascadeType.MERGE, fetch = FetchType.EAGER, orphanRemoval = true)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Turma> turma;
 	
-	@OneToOne(mappedBy = "serieNivelSubnivel",  cascade = CascadeType.ALL,
-    fetch = FetchType.LAZY, optional = false)
+	@OneToOne(mappedBy = "serieNivelSubnivel", fetch = FetchType.LAZY, optional = false)
 	private Disciplina disciplina;
 	
 	public SerieNivelSubnivel() {

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,17 +27,21 @@ public class Turma implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Integer ano_letivo;
+	
+	@Column(name = "anoLetivo")
+	private Integer anoLetivo;
+	
 	private Integer sala;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "serie_nivel_subnivel_id")
 	private SerieNivelSubnivel serieNivelSubnivel;
 	
-	@OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "turma", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<ProfessorTurma> professorTurma;
 	
-	@OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "turma", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Aluno> aluno;
 			
@@ -44,10 +49,10 @@ public class Turma implements Serializable {
 		super();
 	}
 
-	public Turma(Integer id, Integer ano_letivo, Integer sala, SerieNivelSubnivel serieNivelSubnivel) {
+	public Turma(Integer id, Integer anoLetivo, Integer sala, SerieNivelSubnivel serieNivelSubnivel) {
 		super();
 		this.id = id;
-		this.ano_letivo = ano_letivo;
+		this.anoLetivo = anoLetivo;
 		this.sala = sala;
 		this.serieNivelSubnivel = serieNivelSubnivel;
 	}
@@ -77,12 +82,12 @@ public class Turma implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getAno_letivo() {
-		return ano_letivo;
+	public Integer getAnoLetivo() {
+		return anoLetivo;
 	}
 
-	public void setAno_letivo(Integer ano_letivo) {
-		this.ano_letivo = ano_letivo;
+	public void setAnoLetivo(Integer anoLetivo) {
+		this.anoLetivo = anoLetivo;
 	}
 
 	public Integer getSala() {
