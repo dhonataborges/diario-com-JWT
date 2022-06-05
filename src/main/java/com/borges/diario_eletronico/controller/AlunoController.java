@@ -40,14 +40,14 @@ public class AlunoController {
 	@GetMapping
 	public ResponseEntity<List<AlunoDTO>> findAll() {
 		List<Aluno> list = service.findAll();
-		List<AlunoDTO> listDTO = list.stream().map(obj -> new AlunoDTO(obj)).collect(Collectors.toList());
+		List<AlunoDTO> listDTO = list.stream().map(x -> new AlunoDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
 
 	@PostMapping
 	public ResponseEntity<AlunoDTO> create(@Valid @RequestBody AlunoDTO objDTO) {
-		Aluno newObj = service.create(objDTO);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
+		Aluno obj = service.create(objDTO);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 
@@ -57,10 +57,12 @@ public class AlunoController {
 		return ResponseEntity.ok().body(new AlunoDTO(obj));
 	}
 
+	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<AlunoDTO> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id){
 		service.delete(id);
+		
 		return ResponseEntity.noContent().build();
 	}
-
+		
 }

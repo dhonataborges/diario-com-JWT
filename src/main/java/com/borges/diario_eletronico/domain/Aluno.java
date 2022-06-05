@@ -52,7 +52,7 @@ public class Aluno implements Serializable {
 		super();
 	}
 	public Aluno(Integer id, String nome, Date nascimento, String sexo, String cpf, String rg, String responsavel, String telefone,
-			String endereco, String zona, String serie) {
+			String endereco, String zona, String serie, Turma turma) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -64,6 +64,7 @@ public class Aluno implements Serializable {
 		this.telefone = telefone;
 		this.endereco = endereco;		
 		this.zona = zona;
+		this.turma = turma;
 	}
 	
 	@Override
@@ -170,6 +171,7 @@ public class Aluno implements Serializable {
 	public void setAlunoAtividade(List<AlunoAtividade> alunoAtividade) {
 		this.alunoAtividade = alunoAtividade;
 	}
+	
 	public List<AlunoAula> getAlunoAula() {
 		return alunoAula;
 	}

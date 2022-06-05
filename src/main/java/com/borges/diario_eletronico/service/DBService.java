@@ -53,7 +53,7 @@ public class DBService {
 		/*Aluno a1 = new Aluno(null, "João Borges", sdf.parse("25/06/1995"),"masculino", "133.120.446-18", "mg19.599.003", "Maria Aparecida do Santos",
 							"(38)99927-6907", "rua: batista", "urbana", "1° serie");*/
 			
-		/*Professor p1 = new Professor(null, "Mateus Oliver",sdf.parse("25/06/1995"), "feminino","787.352.100-10", "mg19.599.003", 
+		Professor p1 = new Professor(null, "Mateus Oliver",sdf.parse("25/06/1995"), "feminino","787.352.100-10", "mg19.599.003", 
 							"(38)99927-6907",  "rua: batista", "urbana","admin@gmail.com", encoder.encode("123"));
 		p1.addPerfil(Perfil.ADMIN);
 		
@@ -79,9 +79,9 @@ public class DBService {
 	    
 		turmaRepository.saveAll(Arrays.asList(t1));
 				
-		professorTurmaRepository.saveAll(Arrays.asList(pf1));
+		professorTurmaRepository.saveAll(Arrays.asList(pf1));*/
 
-	    profissionalRepository.saveAll(Arrays.asList(p1,p2));*/
+	    profissionalRepository.saveAll(Arrays.asList(p1,p2));
 
 	}
 

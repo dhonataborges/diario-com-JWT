@@ -37,22 +37,37 @@ public class TurmaService {
 	}
 
 	public Turma update(Integer id, @Valid TurmaDTO objDTO) {
+		
 		objDTO.setId(id);
 		Turma oldObj = findById(id);
+		
+		if (oldObj.getAluno().size() > 0) {
+
+			throw new DataIntegratyViolationException("Turma possui alunos, não pode ser Atualizada!");
+
+		} if (oldObj.getProfessorTurma().size() > 0) {
+
+			throw new DataIntegratyViolationException("Turma possui professor, não pode ser Atulaizada!");
+
+		} 
+		
+
 		oldObj = newTurma(objDTO);
+		
 		return repository.save(oldObj);
 	}
 
-	private Turma newTurma(TurmaDTO obj) {
-		SerieNivelSubnivel serie = serieService.findById(obj.getSerieNivelSubnivel());
-
+	private Turma newTurma(TurmaDTO objDTO) {
+		
+		SerieNivelSubnivel serie = serieService.findById(objDTO.getSerieNivelSubnivel());
 		Turma turma = new Turma();
-		if (obj.getId() != null) {
-			turma.setId(obj.getId());
+		
+		if (objDTO.getId() != null) {
+			turma.setId(objDTO.getId());
 		}
 
-		turma.setAnoLetivo(obj.getAnoLetivo());
-		turma.setSala(obj.getSala());
+		turma.setAnoLetivo(objDTO.getAnoLetivo());
+		turma.setSala(objDTO.getSala());
 		turma.setSerieNivelSubnivel(serie);
 
 		return turma;

@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.borges.diario_eletronico.domain.Aluno;
@@ -37,29 +38,33 @@ public class AlunoService {
 	}
 	
 	public Aluno update(Integer id, @Valid AlunoDTO objDTO) {
-		objDTO.setId(id);
-		Aluno oldObj = findById(id);
+		
+		objDTO.setId(id);		
+		Aluno oldObj = findById(id);		
+		validaPorCpf(objDTO);		
 		oldObj = newAluno(objDTO);
+		
 		return repository.save(oldObj);
 	}
 	
-	private Aluno newAluno(AlunoDTO obj) {
-		Turma turma = turmaService.findById(obj.getTurma());
+	private Aluno newAluno(AlunoDTO objDTO) {
 		
+		Turma turma = turmaService.findById(objDTO.getTurma());
 		Aluno aluno = new Aluno();
-		if(obj.getId() != null) {
-			turma.setId(obj.getId());
+		
+		if(objDTO.getId() != null) {
+			aluno.setId(objDTO.getId());
 		}
 		
-		aluno.setNome(obj.getNome());
-		aluno.setNascimento(obj.getNascimento());
-		aluno.setSexo(obj.getSexo());
-		aluno.setCpf(obj.getCpf());
-		aluno.setRg(obj.getRg());
-		aluno.setResponsavel(obj.getResponsavel());
-		aluno.setTelefone(obj.getTelefone());
-		aluno.setEndereco(obj.getEndereco());
-		aluno.setZona(obj.getZona());
+		aluno.setNome(objDTO.getNome());
+		aluno.setNascimento(objDTO.getNascimento());
+		aluno.setSexo(objDTO.getSexo());
+		aluno.setCpf(objDTO.getCpf());
+		aluno.setRg(objDTO.getRg());
+		aluno.setResponsavel(objDTO.getResponsavel());
+		aluno.setTelefone(objDTO.getTelefone());
+		aluno.setEndereco(objDTO.getEndereco());
+		aluno.setZona(objDTO.getZona());
 		aluno.setTurma(turma);
 		
 		return aluno;
@@ -68,6 +73,14 @@ public class AlunoService {
 	public void delete(Integer id) {
 		
 		repository.deleteById(id);
+	}
+	
+	private void validaPorCpf(AlunoDTO objDTO) {
+		Optional<Aluno> obj = repository.findByCpf(objDTO.getCpf());
+		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+			throw new DataIntegrityViolationException("CPF já cadastrado no sistema!");
+		}
+		
 	}
 	
 }

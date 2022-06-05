@@ -42,8 +42,7 @@ public class Atividade implements Serializable{
 	}
 
 	public Atividade(Integer id, Date data_criacao, Date data_entrega, Integer nota_maxima, String descricao,
-			Integer bimestre, String tipo, ProfessorTurmaDisciplina professorTurmaDisciplina,
-			List<AlunoAtividade> alunoAtividade) {
+			Integer bimestre, String tipo, ProfessorTurmaDisciplina professorTurmaDisciplina) {
 		super();
 		this.id = id;
 		this.data_criacao = data_criacao;
@@ -52,7 +51,6 @@ public class Atividade implements Serializable{
 		this.descricao = descricao;
 		this.tipo = tipo;
 		this.professorTurmaDisciplina = professorTurmaDisciplina;
-		this.alunoAtividade = alunoAtividade;
 	}
 
 	@Override

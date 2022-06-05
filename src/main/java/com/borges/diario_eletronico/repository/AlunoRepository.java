@@ -1,4 +1,6 @@
 package com.borges.diario_eletronico.repository;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +13,6 @@ public interface AlunoRepository extends JpaRepository<Aluno, Integer> {
 	
 	/*@Query("SELECT obj FROM Aluno obj WHERE obj.cpf =:cpf")
 	Aluno findByCPF(@Param("cpf") String cpf);*/
+	Optional<Aluno> findByCpf(String cpf);
+
 }

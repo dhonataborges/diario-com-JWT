@@ -41,7 +41,7 @@ public class Turma implements Serializable {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<ProfessorTurma> professorTurma;
 	
-	@OneToMany(mappedBy = "turma", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+	@OneToMany(mappedBy = "turma", cascade = CascadeType.MERGE, fetch = FetchType.EAGER, orphanRemoval = true)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Aluno> aluno;
 			
