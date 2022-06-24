@@ -20,48 +20,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.borges.diario_eletronico.domain.Turma;
-import com.borges.diario_eletronico.domain.dtos.TurmaDTO;
-import com.borges.diario_eletronico.service.TurmaService;
+import com.borges.diario_eletronico.domain.Aula;
+import com.borges.diario_eletronico.domain.dtos.AulaDTO;
+import com.borges.diario_eletronico.service.AulaService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping(value = "/turmas")
-public class TurmaController {
+@RequestMapping(value = "/aulas")
+public class AulaController {
 	
 	@Autowired
-	private TurmaService service;
+	private AulaService service;
 	
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<TurmaDTO> findById(@PathVariable Integer id) {
-		Turma obj = service.findById(id);
-		return ResponseEntity.ok().body(new TurmaDTO(obj));
+	public ResponseEntity<AulaDTO> findById(@PathVariable Integer id) {
+		Aula obj = service.findById(id);
+		return ResponseEntity.ok().body(new AulaDTO(obj));
 	}
 
 	@GetMapping
-	public ResponseEntity<List<TurmaDTO>> findAll() {
-		List<Turma> list = service.findAll();
-		List<TurmaDTO> listDTO = list.stream().map(x -> new TurmaDTO(x)).collect(Collectors.toList());
+	public ResponseEntity<List<AulaDTO>> findAll() {
+		List<Aula> list = service.findAll();
+		List<AulaDTO> listDTO = list.stream().map(x -> new AulaDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@PostMapping
-	public ResponseEntity<TurmaDTO> create(@Valid @RequestBody TurmaDTO objDTO) {
-		Turma obj = service.create(objDTO);
+	public ResponseEntity<AulaDTO> create(@Valid @RequestBody AulaDTO objDTO) {
+		Aula obj = service.create(objDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<TurmaDTO> update(@PathVariable Integer id, @Valid @RequestBody TurmaDTO objDTO) {
-		Turma obj = service.update(id, objDTO);
-		return ResponseEntity.ok().body(new TurmaDTO(obj));
+	public ResponseEntity<AulaDTO> update(@PathVariable Integer id, @Valid @RequestBody AulaDTO objDTO) {
+		Aula obj = service.update(id, objDTO);
+		return ResponseEntity.ok().body(new AulaDTO(obj));
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id){
 		service.delete(id);

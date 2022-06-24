@@ -22,7 +22,7 @@ public class ProfessorTurmaDTO implements Serializable{
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataAtribuicao;
-	private Boolean status;
+	private Integer status;
 	
 	public ProfessorTurmaDTO() {
 		super();
@@ -36,7 +36,7 @@ public class ProfessorTurmaDTO implements Serializable{
 		this.professor = obj.getProfessor().getId();
 		this.nomeProfessor = obj.getProfessor().getNome();
 		this.dataAtribuicao = obj.getData_atribuicao();
-		this.status = obj.getStatus();
+		this.status = obj.getStatus().getCodigo();
 	}
 
 	public Integer getId() {
@@ -87,11 +87,11 @@ public class ProfessorTurmaDTO implements Serializable{
 		this.dataAtribuicao = dataAtribuicao;
 	}
 
-	public Boolean getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(Boolean status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 		

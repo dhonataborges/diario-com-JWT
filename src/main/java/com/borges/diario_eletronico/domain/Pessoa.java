@@ -26,16 +26,16 @@ public abstract class Pessoa implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	private String nome;
-	private Date nascimento;
-	private String sexo;	
+	protected Integer id;
+	protected String nome;
+	protected Date nascimento;
+	protected String sexo;	
 	@CPF
-	private String cpf;	
-	private String rg;
-	private String telefone;
-	private String endereco;
-	private String zona;
+	protected String cpf;	
+	protected String rg;
+	protected String telefone;
+	protected String endereco;
+	protected String zona;
 	
 	//@Column(unique = true)
 	protected String email;

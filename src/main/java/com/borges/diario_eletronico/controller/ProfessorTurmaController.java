@@ -25,7 +25,7 @@ import com.borges.diario_eletronico.service.ProfessorTurmaService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping(value = "/professorTurma")
+@RequestMapping(value = "/professorTurmas")
 public class ProfessorTurmaController {
 	
 	@Autowired
@@ -37,6 +37,7 @@ public class ProfessorTurmaController {
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ProfessorTurmaDTO> findById(@PathVariable Integer id) {
+		//ProfessorTurma obj = service.findById(id);
 		ProfessorTurma obj = service.findById(id);
 		return ResponseEntity.ok().body(new ProfessorTurmaDTO(obj));
 	}
@@ -46,8 +47,8 @@ public class ProfessorTurmaController {
 	 * Busca todos os ProfessorTurma da base de dados*/
 	
 	@GetMapping
-	public ResponseEntity<List<ProfessorTurmaDTO>> findAll() {
-		List<ProfessorTurma> list = service.findAll();
+	public ResponseEntity<List<ProfessorTurmaDTO>> findAllTurmas() {
+		List<ProfessorTurma> list = service.findAllTurmas();
 		List<ProfessorTurmaDTO> listDTO = list.stream().map(x -> new ProfessorTurmaDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}

@@ -2,7 +2,7 @@ package com.borges.diario_eletronico.domain.enums;
 
 public enum Perfil {
 	
-	ADMIN(0, "ROLE_ADMIN"), ALUNO(1, "ROLE_ALUNO"), PROFESSOR(2, "ROLE_PROFESSOR");
+	ADMIN(0, "ROLE_ADMIN"), PROFESSOR(1, "ROLE_PROFESSOR");
 	
 	private Integer codigo;
 	private String descricao;

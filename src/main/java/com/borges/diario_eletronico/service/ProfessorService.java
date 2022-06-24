@@ -26,25 +26,25 @@ import com.borges.diario_eletronico.service.execeptions.ObjectNotFoundException;
 
 @Service
 public class ProfessorService {
-	
+
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
 	@Autowired
-	private ProfessorRepository profissionalRepository;
-	
-	@Autowired
 	PessoaRepository pessoaRepository;
 	
 	@Autowired
-	DisciplinaRepository disciplinaRepository;
+	ProfessorRepository professorRepository;
 
+	@Autowired
+	DisciplinaRepository disciplinaRepository;
+	
 	/**
 	 * Buscar Profissional pelo ID
 	 */
 	public Professor findById(Integer id) {
 
-		Optional<Professor> obj = profissionalRepository.findById(id);
+		Optional<Professor> obj = professorRepository.findById(id);
 
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id:" + id + ", Tipo:" + Professor.class.getName()));
@@ -54,20 +54,32 @@ public class ProfessorService {
 	 * Busca todos os Profissional da base de dados
 	 */
 	public List<Professor> findAll() {
-		return profissionalRepository.findAll();
+		return professorRepository.findAll();
 	}
 
+	/*
+	 * Cria um Profissional
+	 */
+	public Professor create(ProfessorDTO objDTO) {
+		objDTO.setSenha(encoder.encode(objDTO.getSenha()));
+		validaPorCpfEEmail(objDTO);
+		return professorRepository.save(newProfissional(objDTO));
+	}
 
 	/*
 	 * Atualizar um Profissional
 	 */
 	public Professor update(Integer id, @Valid ProfessorDTO objDTO) {
 		objDTO.setId(id);
-		objDTO.setSenha(encoder.encode(objDTO.getSenha()));
-		validaPorCpfEEmail(objDTO);
 		Professor oldObj = findById(id);
+		
+		if(!objDTO.getSenha().equals(oldObj.getSenha())) {
+			objDTO.setSenha(encoder.encode(objDTO.getSenha()));
+		}
+		
+		validaPorCpfEEmail(objDTO);
 		oldObj = newProfissional(objDTO);
-		return profissionalRepository.save(oldObj);
+		return professorRepository.save(oldObj);
 	}
 
 	private Professor newProfissional(ProfessorDTO obj) {
@@ -77,7 +89,7 @@ public class ProfessorService {
 		if (obj.getId() != null) {
 			profissional.setId(obj.getId());
 		}
-		
+
 		profissional.setNome(obj.getNome());
 		profissional.setNascimento(obj.getNascimento());
 		profissional.setSexo(obj.getSexo());
@@ -88,25 +100,16 @@ public class ProfessorService {
 		profissional.setZona(obj.getZona());
 		profissional.setEmail(obj.getEmail());
 		profissional.setSenha(obj.getSenha());
-		
+
 		return profissional;
 	}
-	
-	/*
-	 * Cria um Profissional
-	 */
-	public Professor create(ProfessorDTO objDTO) {
-		objDTO.setSenha(encoder.encode(objDTO.getSenha()));
-		validaPorCpfEEmail(objDTO);
-		return profissionalRepository.save(newProfissional(objDTO));
-	}
-	
+
 	/*
 	 * Delete um Profissional pelo ID
 	 */
 	public void delete(Integer id) {
 
-		profissionalRepository.deleteById(id);
+		professorRepository.deleteById(id);
 
 	}
 
@@ -115,12 +118,12 @@ public class ProfessorService {
 	 */
 	private void validaPorCpfEEmail(ProfessorDTO objDTO) {
 		Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
-		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+		if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
 			throw new DataIntegrityViolationException("CPF já cadastrado no sistema!");
 		}
-		
+
 		obj = pessoaRepository.findByEmail(objDTO.getEmail());
-		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+		if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
 			throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
 		}
 	}

@@ -53,14 +53,15 @@ public class DBService {
 		/*Aluno a1 = new Aluno(null, "João Borges", sdf.parse("25/06/1995"),"masculino", "133.120.446-18", "mg19.599.003", "Maria Aparecida do Santos",
 							"(38)99927-6907", "rua: batista", "urbana", "1° serie");*/
 			
-		Professor p1 = new Professor(null, "Mateus Oliver",sdf.parse("25/06/1995"), "feminino","787.352.100-10", "mg19.599.003", 
+		Professor p1 = new Professor(null, "Mateus Oliver",sdf.parse("25/06/1995"), "masculino","787.352.100-10", "mg19.599.003", 
 							"(38)99927-6907",  "rua: batista", "urbana","admin@gmail.com", encoder.encode("123"));
 		p1.addPerfil(Perfil.ADMIN);
 		
 		
 		Professor p2 = new Professor(null, "Joana Marques",sdf.parse("25/06/1995"), "feminino","957.443.730-20", "mg19.599.003", 
-				"(38)99927-6907",  "rua: batista","rural","","");
-				
+				"(38)99927-6907",  "rua: batista","rural","borges@gmail.com", encoder.encode("123"));
+		p2.addPerfil(Perfil.PROFESSOR);
+		
 		/*SerieNivelSubnivel s1 = new SerieNivelSubnivel(null, 2, 4, "Segunda Serie");
 		SerieNivelSubnivel s2 = new SerieNivelSubnivel(null, 1, 5, "Primeira Serie");
 		

@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.borges.diario_eletronico.domain.enums.Status;
+
 @Entity
 @Table(name = "professor_turma")
 public class ProfessorTurma implements Serializable{
@@ -33,7 +35,7 @@ public class ProfessorTurma implements Serializable{
 	private Professor professor;
 
 	private Date data_atribuicao;
-	private Boolean status;
+	private Status status;
 	
 	@OneToMany(mappedBy = "professorTurma", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<ProfessorTurmaDisciplina> professorTurmaDisciplina;
@@ -42,7 +44,7 @@ public class ProfessorTurma implements Serializable{
 		super();
 	}
 
-	public ProfessorTurma(Integer id, Turma turma, Professor professor, Date data_atribuicao, Boolean status) {
+	public ProfessorTurma(Integer id, Turma turma, Professor professor, Date data_atribuicao, Status status) {
 		super();
 		this.id = id;
 		this.turma = turma;
@@ -83,11 +85,11 @@ public class ProfessorTurma implements Serializable{
 		this.data_atribuicao = data_atribuicao;
 	}
 
-	public Boolean getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(Boolean status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 

@@ -1,11 +1,11 @@
 package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,6 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "aula")
@@ -24,9 +28,18 @@ public class Aula implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
 	private Date data;
-	private Time hora_inicio;
-	private Time hora_fim;
+	
+	@Column(name = "hora_inicio")
+	private Date horaInicio;
+	
+	@Column(name = "hora_fim")
+	private Date horaFim;
+	
 	private String conteudo;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -40,16 +53,15 @@ public class Aula implements Serializable{
 		super();
 	}
 
-	public Aula(Integer id, Date data, Time hora_inicio, Time hora_fim, String conteudo,
-			ProfessorTurmaDisciplina professorTurmaDisciplina, List<AlunoAula> alunoAula) {
+	public Aula(Integer id, Date data, Date horaInicio, Date horaFim, String conteudo,
+			ProfessorTurmaDisciplina professorTurmaDisciplina) {
 		super();
 		this.id = id;
 		this.data = data;
-		this.hora_inicio = hora_inicio;
-		this.hora_fim = hora_fim;
+		this.horaInicio = horaInicio;
+		this.horaFim = horaFim;
 		this.conteudo = conteudo;
 		this.professorTurmaDisciplina = professorTurmaDisciplina;
-		this.alunoAula = alunoAula;
 	}
 
 	public Integer getId() {
@@ -68,20 +80,20 @@ public class Aula implements Serializable{
 		this.data = data;
 	}
 
-	public Time getHora_inicio() {
-		return hora_inicio;
+	public Date getHoraInicio() {
+		return horaInicio;
 	}
 
-	public void setHora_inicio(Time hora_inicio) {
-		this.hora_inicio = hora_inicio;
+	public void setHoraInicio(Date horaInicio) {
+		this.horaInicio = horaInicio;
 	}
 
-	public Time getHora_fim() {
-		return hora_fim;
+	public Date getHoraFim() {
+		return horaFim;
 	}
 
-	public void setHora_fim(Time hora_fim) {
-		this.hora_fim = hora_fim;
+	public void setHoraFim(Date horaFim) {
+		this.horaFim = horaFim;
 	}
 
 	public String getConteudo() {

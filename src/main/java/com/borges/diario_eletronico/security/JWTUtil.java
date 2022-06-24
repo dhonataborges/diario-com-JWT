@@ -1,6 +1,7 @@
 package com.borges.diario_eletronico.security;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -17,8 +18,11 @@ public class JWTUtil {
 	@Value("${jwt.secret}")
 	private String secret;
 
-	public String generateToken(String email) {
+	public String generateToken(Integer userId, String perfis, String email) {
 		return Jwts.builder()
+				.setClaims(new HashMap<String, Object>())
+				.claim("userId", userId)
+				.claim("perfis", perfis)
 				.setSubject(email)
 				.setExpiration(new Date(System.currentTimeMillis() + expiration))
 				.signWith(SignatureAlgorithm.HS512, secret.getBytes())

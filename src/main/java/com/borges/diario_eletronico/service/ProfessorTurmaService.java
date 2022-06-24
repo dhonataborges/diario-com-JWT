@@ -12,6 +12,7 @@ import com.borges.diario_eletronico.domain.Professor;
 import com.borges.diario_eletronico.domain.ProfessorTurma;
 import com.borges.diario_eletronico.domain.Turma;
 import com.borges.diario_eletronico.domain.dtos.ProfessorTurmaDTO;
+import com.borges.diario_eletronico.domain.enums.Status;
 import com.borges.diario_eletronico.repository.ProfessorTurmaRepository;
 import com.borges.diario_eletronico.service.execeptions.ObjectNotFoundException;
 
@@ -33,8 +34,8 @@ public class ProfessorTurmaService{
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
 	}
 
-	public List<ProfessorTurma> findAll() {
-		return repository.findAll();
+	public List<ProfessorTurma> findAllTurmas() {
+		return repository.findAllTurmas();
 	}
 
 	public ProfessorTurma create(ProfessorTurmaDTO objDTO) {
@@ -60,7 +61,7 @@ public class ProfessorTurmaService{
 		professorTurma.setTurma(turma);
 		professorTurma.setProfessor(prof);;
 		professorTurma.setData_atribuicao(obj.getDataAtribuicao());
-		professorTurma.setStatus(obj.getStatus());
+		professorTurma.setStatus(Status.toEnum(obj.getStatus()));
 		
 		return professorTurma;
 	}
