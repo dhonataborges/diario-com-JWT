@@ -1,31 +1,25 @@
 package com.borges.diario_eletronico.domain.dtos;
 
 import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import com.borges.diario_eletronico.domain.Aula;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class AulaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
 	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@Temporal(TemporalType.DATE)
-	private Date data;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate data;
 	
-	@DateTimeFormat(pattern = "HH:mm")
-	@Temporal(TemporalType.TIME)
-	private Date horaInicio;
+	@JsonFormat(pattern = "HH:mm")
+	private LocalTime horaInicio;
 	
-	@DateTimeFormat(pattern = "HH:mm")
-	@Temporal(TemporalType.TIME)
-	private Date horaFim;
+	@JsonFormat(pattern = "HH:mm")
+	private LocalTime horaFim;
 	
 	private String conteudo;
 	private Integer professor;
@@ -54,27 +48,27 @@ public class AulaDTO implements Serializable {
 		this.id = id;
 	}
 
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 
-	public Date getHoraInicio() {
+	public LocalTime getHoraInicio() {
 		return horaInicio;
 	}
 
-	public void setHoraInicio(Date horaInicio) {
+	public void setHoraInicio(LocalTime horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 
-	public Date getHoraFim() {
+	public LocalTime getHoraFim() {
 		return horaFim;
 	}
 
-	public void setHoraFim(Date horaFim) {
+	public void setHoraFim(LocalTime horaFim) {
 		this.horaFim = horaFim;
 	}
 

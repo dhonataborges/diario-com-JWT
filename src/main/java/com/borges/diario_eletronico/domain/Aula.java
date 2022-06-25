@@ -1,7 +1,8 @@
 package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,10 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "aula")
@@ -28,17 +25,13 @@ public class Aula implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@Temporal(TemporalType.DATE)
-	private Date data;
+	private LocalDate data;
 	
 	@Column(name = "hora_inicio")
-	private Date horaInicio;
+	private LocalTime horaInicio;
 	
 	@Column(name = "hora_fim")
-	private Date horaFim;
+	private LocalTime horaFim;
 	
 	private String conteudo;
 	
@@ -53,13 +46,13 @@ public class Aula implements Serializable{
 		super();
 	}
 
-	public Aula(Integer id, Date data, Date horaInicio, Date horaFim, String conteudo,
+	public Aula(Integer id, LocalDate data, LocalTime horaInicio, LocalTime horaFim, String conteudo,
 			ProfessorTurmaDisciplina professorTurmaDisciplina) {
 		super();
 		this.id = id;
-		this.data = data;
-		this.horaInicio = horaInicio;
-		this.horaFim = horaFim;
+		this.setData(LocalDate.now());
+		this.setHoraInicio(LocalTime.now());
+		this.setHoraFim(LocalTime.now());
 		this.conteudo = conteudo;
 		this.professorTurmaDisciplina = professorTurmaDisciplina;
 	}
@@ -72,27 +65,27 @@ public class Aula implements Serializable{
 		this.id = id;
 	}
 
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 
-	public Date getHoraInicio() {
+	public LocalTime getHoraInicio() {
 		return horaInicio;
 	}
 
-	public void setHoraInicio(Date horaInicio) {
+	public void setHoraInicio(LocalTime horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 
-	public Date getHoraFim() {
+	public LocalTime getHoraFim() {
 		return horaFim;
 	}
 
-	public void setHoraFim(Date horaFim) {
+	public void setHoraFim(LocalTime horaFim) {
 		this.horaFim = horaFim;
 	}
 

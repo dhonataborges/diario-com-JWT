@@ -12,7 +12,6 @@ import com.borges.diario_eletronico.domain.Aula;
 import com.borges.diario_eletronico.domain.ProfessorTurmaDisciplina;
 import com.borges.diario_eletronico.domain.dtos.AulaDTO;
 import com.borges.diario_eletronico.repository.AulaRepository;
-import com.borges.diario_eletronico.service.execeptions.DataIntegratyViolationException;
 import com.borges.diario_eletronico.service.execeptions.ObjectNotFoundException;
 
 @Service
