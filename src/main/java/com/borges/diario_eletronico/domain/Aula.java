@@ -35,11 +35,11 @@ public class Aula implements Serializable{
 	
 	private String conteudo;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "professor_turma_disciplina_id")
 	private ProfessorTurmaDisciplina professorTurmaDisciplina;
 	
-	@OneToMany(mappedBy = "aula", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "aula", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	private List<AlunoAula> alunoAula;
 		
 	public Aula() {

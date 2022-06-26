@@ -15,7 +15,7 @@ public class ProfessorTurmaDTO implements Serializable{
 
 	private Integer id;
 	private Integer turma;
-	private Integer anoTurma;
+	private String descricaoTurma;
 	private Integer professor;
 	private String nomeProfessor;
 	
@@ -32,7 +32,7 @@ public class ProfessorTurmaDTO implements Serializable{
 		super();
 		this.id = obj.getId();
 		this.turma = obj.getTurma().getId();
-		this.anoTurma = obj.getTurma().getAnoLetivo();
+		this.descricaoTurma = obj.getTurma().getSerieNivelSubnivel().getDescricao().toString();
 		this.professor = obj.getProfessor().getId();
 		this.nomeProfessor = obj.getProfessor().getNome();
 		this.dataAtribuicao = obj.getData_atribuicao();
@@ -55,12 +55,12 @@ public class ProfessorTurmaDTO implements Serializable{
 		this.turma = turma;
 	}
 
-	public Integer getAnoTurma() {
-		return anoTurma;
+	public String getDescricaoTurma() {
+		return descricaoTurma;
 	}
 
-	public void setAnoTurma(Integer anoTurma) {
-		this.anoTurma = anoTurma;
+	public void setDescricaoTurma(String descricaoTurma) {
+		this.descricaoTurma = descricaoTurma;
 	}
 
 	public Integer getProfessor() {

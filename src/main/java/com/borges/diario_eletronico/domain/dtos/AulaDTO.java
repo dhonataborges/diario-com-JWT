@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import com.borges.diario_eletronico.domain.Aula;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -12,13 +15,15 @@ public class AulaDTO implements Serializable {
 	
 	private Integer id;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
 	private LocalDate data;
 	
-	@JsonFormat(pattern = "HH:mm")
+	@JsonFormat(pattern = "HH:mm", shape = JsonFormat.Shape.STRING)
+	@Temporal(TemporalType.TIME)
 	private LocalTime horaInicio;
 	
-	@JsonFormat(pattern = "HH:mm")
+	@JsonFormat(pattern = "HH:mm", shape = JsonFormat.Shape.STRING)
+	@Temporal(TemporalType.TIME)
 	private LocalTime horaFim;
 	
 	private String conteudo;
