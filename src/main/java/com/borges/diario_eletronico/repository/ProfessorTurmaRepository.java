@@ -11,7 +11,7 @@ import com.borges.diario_eletronico.domain.ProfessorTurma;
 @Repository
 public interface ProfessorTurmaRepository extends JpaRepository<ProfessorTurma, Integer> {
 	
-	@Query(value = "SELECT * FROM `professor_turma` WHERE professor_id = turma_id", nativeQuery = true)
-	List<ProfessorTurma> findAllTurmas();
+	/*@Query(value = "SELECT * FROM `professor_turma` WHERE professor_id = turma_id", nativeQuery = true)
+	List<ProfessorTurma> findAllTurmas();*/
 
 }

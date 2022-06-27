@@ -49,7 +49,7 @@ public class ProfessorTurmaDisciplina implements Serializable{
 	private List<Aula> aula;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "professorTurmaDisciplina", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "professorTurmaDisciplina", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Atividade> atividade;
 	

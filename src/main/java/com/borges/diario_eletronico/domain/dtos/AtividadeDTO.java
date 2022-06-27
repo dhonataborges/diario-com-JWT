@@ -35,6 +35,7 @@ public class AtividadeDTO implements Serializable {
 		this.id = obj.getId();
 		this.dataCriacao = obj.getDataCriacao();
 		this.dataEntrega = obj.getDataEntrega();
+		this.notaMaxima = obj.getNotaMaxima();
 		this.descricao = obj.getDescricao();
 		this.tipo = obj.getTipo();
 		this.professor = obj.getProfessorTurmaDisciplina().getProfessorTurma().getProfessor().getId();

@@ -34,8 +34,8 @@ public class ProfessorTurmaService{
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
 	}
 
-	public List<ProfessorTurma> findAllTurmas() {
-		return repository.findAllTurmas();
+	public List<ProfessorTurma> findAll() {
+		return repository.findAll();
 	}
 
 	public ProfessorTurma create(ProfessorTurmaDTO objDTO) {

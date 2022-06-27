@@ -52,14 +52,14 @@ public class Atividade implements Serializable {
 			Integer bimestre, String tipo, ProfessorTurmaDisciplina professorTurmaDisciplina) {
 		super();
 		this.id = id;
-		this.dataCriacao = dataCriacao;
-		this.dataEntrega = dataEntrega;
+		this.setDataCriacao(LocalDate.now());
+		this.setDataEntrega(LocalDate.now());
 		this.notaMaxima = notaMaxima;
 		this.descricao = descricao;
 		this.tipo = tipo;
 		this.professorTurmaDisciplina = professorTurmaDisciplina;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
