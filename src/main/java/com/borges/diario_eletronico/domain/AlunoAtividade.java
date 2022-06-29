@@ -21,11 +21,11 @@ public class AlunoAtividade implements Serializable {
 	private Integer id;
 	private Integer nota;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "aluno_id")
 	private Aluno aluno;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "atividade_id")
 	private Atividade atividade;
 		
@@ -34,11 +34,11 @@ public class AlunoAtividade implements Serializable {
 		
 	}
 
-	public AlunoAtividade(Aluno aluno, Atividade atividade, Integer nota) {
+	public AlunoAtividade(Integer nota, Aluno aluno, Atividade atividade) {
 		super();
+		this.nota = nota;
 		this.aluno = aluno;
 		this.atividade = atividade;
-		this.nota = nota;
 	}
 	
 	public Integer getId() {
