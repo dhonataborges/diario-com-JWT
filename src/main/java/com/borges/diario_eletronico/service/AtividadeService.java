@@ -54,7 +54,7 @@ public class AtividadeService {
 
 	private Atividade newAtividade(AtividadeDTO objDTO) {
 		
-		ProfessorTurmaDisciplina professor = professorService.findById(objDTO.getProfessor());
+		ProfessorTurmaDisciplina disciplina = professorService.findById(objDTO.getDisciplina());
 		Atividade atividade = new Atividade();
 		
 		if (objDTO.getId() != null) {
@@ -66,7 +66,7 @@ public class AtividadeService {
 		atividade.setNotaMaxima(objDTO.getNotaMaxima());
 		atividade.setDescricao(objDTO.getDescricao());
 		atividade.setTipo(objDTO.getTipo());
-		atividade.setProfessorTurmaDisciplina(professor);
+		atividade.setProfessorTurmaDisciplina(disciplina);
 
 		return atividade;
 	}

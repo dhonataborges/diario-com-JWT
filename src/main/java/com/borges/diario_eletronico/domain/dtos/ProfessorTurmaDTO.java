@@ -16,8 +16,8 @@ public class ProfessorTurmaDTO implements Serializable{
 	private Integer id;
 	private Integer turma;
 	private String descricaoTurma;
-	private Integer professor;
-	private String nomeProfessor;
+	private Integer displina;
+	private String nomeDisciplina;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
@@ -33,8 +33,8 @@ public class ProfessorTurmaDTO implements Serializable{
 		this.id = obj.getId();
 		this.turma = obj.getTurma().getId();
 		this.descricaoTurma = obj.getTurma().getSerieNivelSubnivel().getDescricao().toString();
-		this.professor = obj.getProfessor().getId();
-		this.nomeProfessor = obj.getProfessor().getNome();
+		this.displina = obj.getProfessor().getId();
+		this.nomeDisciplina = obj.getProfessor().getNome();
 		this.dataAtribuicao = obj.getData_atribuicao();
 		this.status = obj.getStatus().getCodigo();
 	}
@@ -63,20 +63,20 @@ public class ProfessorTurmaDTO implements Serializable{
 		this.descricaoTurma = descricaoTurma;
 	}
 
-	public Integer getProfessor() {
-		return professor;
+	public Integer getDisplina() {
+		return displina;
 	}
 
-	public void setProfessor(Integer professor) {
-		this.professor = professor;
+	public void setDisplina(Integer displina) {
+		this.displina = displina;
 	}
 
-	public String getNomeProfessor() {
-		return nomeProfessor;
+	public String getNomeDisciplina() {
+		return nomeDisciplina;
 	}
 
-	public void setNomeProfessor(String nomeProfessor) {
-		this.nomeProfessor = nomeProfessor;
+	public void setNomeDisciplina(String nomeDisciplina) {
+		this.nomeDisciplina = nomeDisciplina;
 	}
 
 	public Date getDataAtribuicao() {

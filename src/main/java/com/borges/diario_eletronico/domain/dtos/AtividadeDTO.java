@@ -23,8 +23,8 @@ public class AtividadeDTO implements Serializable {
 	private String descricao;
 	private String tipo;
 	
-	private Integer professor;
-	private String nomeProfessor;
+	private Integer disciplina;
+	private String nomeDisciplina;
 	
 	public AtividadeDTO() {
 		super();
@@ -38,8 +38,8 @@ public class AtividadeDTO implements Serializable {
 		this.notaMaxima = obj.getNotaMaxima();
 		this.descricao = obj.getDescricao();
 		this.tipo = obj.getTipo();
-		this.professor = obj.getProfessorTurmaDisciplina().getProfessorTurma().getProfessor().getId();
-		this.nomeProfessor = obj.getProfessorTurmaDisciplina().getProfessorTurma().getProfessor().getNome();
+		this.disciplina = obj.getProfessorTurmaDisciplina().getDisciplina().getId();
+		this.nomeDisciplina = obj.getProfessorTurmaDisciplina().getDisciplina().getNome();
 	}
 
 	public Integer getId() {
@@ -90,20 +90,20 @@ public class AtividadeDTO implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public Integer getProfessor() {
-		return professor;
+	public Integer getDisciplina() {
+		return disciplina;
 	}
 
-	public void setProfessor(Integer professor) {
-		this.professor = professor;
+	public void setDisciplina(Integer disciplina) {
+		this.disciplina = disciplina;
 	}
 
-	public String getNomeProfessor() {
-		return nomeProfessor;
+	public String getNomeDisciplina() {
+		return nomeDisciplina;
 	}
 
-	public void setNomeProfessor(String nomeProfessor) {
-		this.nomeProfessor = nomeProfessor;
+	public void setNomeDisciplina(String nomeDisciplina) {
+		this.nomeDisciplina = nomeDisciplina;
 	}
 
 }

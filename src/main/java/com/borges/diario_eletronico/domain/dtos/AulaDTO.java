@@ -27,8 +27,8 @@ public class AulaDTO implements Serializable {
 	private LocalTime horaFim;
 	
 	private String conteudo;
-	private Integer professor;
-	private String nomeProfessor;
+	private Integer disciplina;
+	private String nomeDisciplina;
 	
 	public AulaDTO() {
 		super();
@@ -41,8 +41,8 @@ public class AulaDTO implements Serializable {
 		this.horaInicio = obj.getHoraInicio();
 		this.horaFim = obj.getHoraFim();
 		this.conteudo = obj.getConteudo();
-		this.professor = obj.getProfessorTurmaDisciplina().getProfessorTurma().getProfessor().getId();
-		this.nomeProfessor = obj.getProfessorTurmaDisciplina().getProfessorTurma().getProfessor().getNome();
+		this.disciplina = obj.getProfessorTurmaDisciplina().getDisciplina().getId();
+		this.nomeDisciplina = obj.getProfessorTurmaDisciplina().getDisciplina().getNome();
 	}
 
 	public Integer getId() {
@@ -85,20 +85,20 @@ public class AulaDTO implements Serializable {
 		this.conteudo = conteudo;
 	}
 
-	public Integer getProfessor() {
-		return professor;
+	public Integer getDisciplina() {
+		return disciplina;
 	}
 
-	public void setProfessor(Integer professor) {
-		this.professor = professor;
+	public void setDisciplina(Integer disciplina) {
+		this.disciplina = disciplina;
 	}
 
-	public String getNomeProfessor() {
-		return nomeProfessor;
+	public String getNomeDisciplina() {
+		return nomeDisciplina;
 	}
 
-	public void setNomeProfessor(String nomeProfessor) {
-		this.nomeProfessor = nomeProfessor;
+	public void setNomeDisciplina(String nomeDisciplina) {
+		this.nomeDisciplina = nomeDisciplina;
 	}
 	
 }

@@ -54,7 +54,7 @@ public class AulaService {
 
 	private Aula newAula(AulaDTO objDTO) {
 		
-		ProfessorTurmaDisciplina professor = professorService.findById(objDTO.getProfessor());
+		ProfessorTurmaDisciplina disciplina = professorService.findById(objDTO.getDisciplina());
 		Aula aula = new Aula();
 		
 		if (objDTO.getId() != null) {
@@ -65,7 +65,7 @@ public class AulaService {
 		aula.setHoraInicio(objDTO.getHoraInicio());
 		aula.setHoraFim(objDTO.getHoraFim());
 		aula.setConteudo(objDTO.getConteudo());
-		aula.setProfessorTurmaDisciplina(professor);
+		aula.setProfessorTurmaDisciplina(disciplina);
 
 		return aula;
 	}

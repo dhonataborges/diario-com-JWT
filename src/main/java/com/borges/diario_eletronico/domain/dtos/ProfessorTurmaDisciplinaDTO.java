@@ -23,12 +23,12 @@ public class ProfessorTurmaDisciplinaDTO implements Serializable{
 	public ProfessorTurmaDisciplinaDTO(ProfessorTurmaDisciplina obj) {
 		super();
 		this.id = obj.getId();
-		this.professorTurma = obj.getProfessorTurma().getProfessor().getId();
-		this.nomeProfessorTurma = obj.getProfessorTurma().getProfessor().getNome();
+		this.professorTurma = obj.getProfessorTurma().getTurma().getId();
+		this.nomeProfessorTurma = obj.getProfessorTurma().getTurma().getSerieNivelSubnivel().getDescricao();
 		this.disciplina = obj.getDisciplina().getId();
 		this.nomeDisciplina = obj.getDisciplina().getNome();
 		this.bimestre = obj.getBimestre();
-		this.anoLetivo = obj.getAnoLetivo();
+		this.anoLetivo = obj.getProfessorTurma().getTurma().getAnoLetivo();
 	}
 
 	public Integer getId() {
