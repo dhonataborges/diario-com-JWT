@@ -50,7 +50,7 @@ public class ProfessorTurmaService{
 	}
 	
 	private ProfessorTurma newProfessorTurma(ProfessorTurmaDTO obj) {
-		Professor disciplina = professorService.findById(obj.getDisplina());
+		Professor professor = professorService.findById(obj.getProfessor());
 		Turma turma = turmaService.findById(obj.getTurma());
 		
 		ProfessorTurma professorTurma = new ProfessorTurma();
@@ -59,8 +59,8 @@ public class ProfessorTurmaService{
 		}
 		
 		professorTurma.setTurma(turma);
-		professorTurma.setProfessor(disciplina);;
-		professorTurma.setData_atribuicao(obj.getDataAtribuicao());
+		professorTurma.setProfessor(professor);;
+		professorTurma.setDataAtribuicao(obj.getDataAtribuicao());
 		professorTurma.setStatus(Status.toEnum(obj.getStatus()));
 		
 		return professorTurma;

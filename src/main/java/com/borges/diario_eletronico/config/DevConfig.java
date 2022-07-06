@@ -25,7 +25,7 @@ public class DevConfig {
 	public boolean instanciaDB() throws ParseException {
 		
 		if(ddl.equals("create")) {
-			this.dbService.instanciaDB();
+			//this.dbService.instanciaDB();
 		}
 		
 		return false;

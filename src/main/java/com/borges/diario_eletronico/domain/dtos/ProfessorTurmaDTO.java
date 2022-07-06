@@ -1,12 +1,10 @@
 package com.borges.diario_eletronico.domain.dtos;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.borges.diario_eletronico.domain.ProfessorTurma;
 
@@ -19,9 +17,8 @@ public class ProfessorTurmaDTO implements Serializable{
 	private Integer professor;
 	private String nomeProfessor;
 	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
-	private Date dataAtribuicao;
+	private LocalDate dataAtribuicao;
 	private Integer status;
 	
 	public ProfessorTurmaDTO() {
@@ -35,7 +32,7 @@ public class ProfessorTurmaDTO implements Serializable{
 		this.descricaoTurma = obj.getTurma().getSerieNivelSubnivel().getDescricao().toString();
 		this.professor = obj.getProfessor().getId();
 		this.nomeProfessor = obj.getProfessor().getNome();
-		this.dataAtribuicao = obj.getData_atribuicao();
+		this.dataAtribuicao = obj.getDataAtribuicao();
 		this.status = obj.getStatus().getCodigo();
 	}
 
@@ -79,11 +76,11 @@ public class ProfessorTurmaDTO implements Serializable{
 		this.nomeProfessor = nomeProfessor;
 	}
 
-	public Date getDataAtribuicao() {
+	public LocalDate getDataAtribuicao() {
 		return dataAtribuicao;
 	}
 
-	public void setDataAtribuicao(Date dataAtribuicao) {
+	public void setDataAtribuicao(LocalDate dataAtribuicao) {
 		this.dataAtribuicao = dataAtribuicao;
 	}
 

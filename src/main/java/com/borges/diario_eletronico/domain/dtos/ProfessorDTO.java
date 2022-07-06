@@ -1,7 +1,7 @@
 package com.borges.diario_eletronico.domain.dtos;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,7 +29,7 @@ public class ProfessorDTO implements Serializable{
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "nascimento")
-	private Date nascimento;
+	private LocalDate nascimento;
 
 	//@NotBlank(message = "Campo SEXO não pode ser vasio!")
 	private String sexo;
@@ -98,11 +98,11 @@ public class ProfessorDTO implements Serializable{
 		this.nome = nome;
 	}
 
-	public Date getNascimento() {
+	public LocalDate getNascimento() {
 		return nascimento;
 	}
 
-	public void setNascimento(Date nascimento) {
+	public void setNascimento(LocalDate nascimento) {
 		this.nascimento = nascimento;
 	}
 

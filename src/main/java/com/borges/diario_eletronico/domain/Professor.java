@@ -1,7 +1,7 @@
 package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +23,7 @@ public class Professor extends Pessoa implements Serializable {
 		super();
 	}
 
-	public Professor(Integer id, String nome, Date nascimento, String sexo, String cpf, String rg, String telefone,
+	public Professor(Integer id, String nome, LocalDate nascimento, String sexo, String cpf, String rg, String telefone,
 			String endereco, String zona, String email, String senha) {
 		super(id, nome, nascimento, sexo, cpf, rg, telefone, endereco, zona, email, senha);
 

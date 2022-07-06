@@ -1,12 +1,11 @@
 package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,30 +25,31 @@ public class ProfessorTurma implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "turma_id")
 	private Turma turma;
 	
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "professor_id")
 	private Professor professor;
 
-	private Date data_atribuicao;
+	private LocalDate dataAtribuicao;
+	
 	private Status status;
 	
-	@OneToMany(mappedBy = "professorTurma", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "professorTurma", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	private List<ProfessorTurmaDisciplina> professorTurmaDisciplina;
 		
 	public ProfessorTurma() {
 		super();
 	}
 
-	public ProfessorTurma(Integer id, Turma turma, Professor professor, Date data_atribuicao, Status status) {
+	public ProfessorTurma(Integer id, Turma turma, Professor professor, LocalDate dataAtribuicao, Status status) {
 		super();
 		this.id = id;
 		this.turma = turma;
 		this.professor = professor;
-		this.data_atribuicao = data_atribuicao;
+		this.setDataAtribuicao(LocalDate.now());
 		this.status = status;
 	}
 
@@ -77,12 +77,12 @@ public class ProfessorTurma implements Serializable{
 		this.professor = professor;
 	}
 
-	public Date getData_atribuicao() {
-		return data_atribuicao;
+	public LocalDate getDataAtribuicao() {
+		return dataAtribuicao;
 	}
 
-	public void setData_atribuicao(Date data_atribuicao) {
-		this.data_atribuicao = data_atribuicao;
+	public void setDataAtribuicao(LocalDate dataAtribuicao) {
+		this.dataAtribuicao = dataAtribuicao;
 	}
 
 	public Status getStatus() {

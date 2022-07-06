@@ -1,7 +1,7 @@
 package com.borges.diario_eletronico.domain.dtos;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Temporal;
@@ -23,11 +23,11 @@ public class AlunoDTO implements Serializable{
 	@NotBlank(message = "Campo NOME não pode ser vasio!")
 	private String nome;
 
-	@NotNull(message = "Campo NASCIMENTO não pode ser vasio!")
+//	@NotNull(message = "Campo NASCIMENTO não pode ser vasio!")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "nascimento")
-	private Date nascimento;
+	private LocalDate nascimento;
 
 	@NotBlank(message = "Campo SEXO não pode ser vasio!")
 	private String sexo;
@@ -61,7 +61,7 @@ public class AlunoDTO implements Serializable{
 	public AlunoDTO() {
 		super();
 
-	}
+	}	
 	
 	public AlunoDTO(Aluno obj) {
 		super();
@@ -78,7 +78,7 @@ public class AlunoDTO implements Serializable{
 		this.turma = obj.getTurma().getId();
 		this.salaTurma = obj.getTurma().getSala();
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -93,14 +93,6 @@ public class AlunoDTO implements Serializable{
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public Date getNascimento() {
-		return nascimento;
-	}
-
-	public void setNascimento(Date nascimento) {
-		this.nascimento = nascimento;
 	}
 
 	public String getSexo() {
@@ -126,7 +118,7 @@ public class AlunoDTO implements Serializable{
 	public void setRg(String rg) {
 		this.rg = rg;
 	}
-	
+
 	public String getResponsavel() {
 		return responsavel;
 	}
@@ -134,7 +126,7 @@ public class AlunoDTO implements Serializable{
 	public void setResponsavel(String responsavel) {
 		this.responsavel = responsavel;
 	}
-	
+
 	public String getTelefone() {
 		return telefone;
 	}
@@ -174,5 +166,14 @@ public class AlunoDTO implements Serializable{
 	public void setSalaTurma(Integer salaTurma) {
 		this.salaTurma = salaTurma;
 	}
-		
+
+	public LocalDate getNascimento() {
+		return nascimento;
 	}
+
+	public void setNascimento(LocalDate nascimento) {
+		this.nascimento = nascimento;
+	}
+
+}
+	

@@ -27,8 +27,11 @@ public class TurmaService {
 		Optional<Turma> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
 	}
-
+	
+	
+	
 	public List<Turma> findAll() {
+		//List<Turma> turmasTeste = repository.findAll();
 		return repository.findAll();
 	}
 

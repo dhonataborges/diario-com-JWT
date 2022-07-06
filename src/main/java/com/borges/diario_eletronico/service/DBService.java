@@ -1,19 +1,6 @@
 package com.borges.diario_eletronico.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Arrays;
-import java.util.Date;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import com.borges.diario_eletronico.domain.Professor;
-import com.borges.diario_eletronico.domain.enums.Perfil;
-import com.borges.diario_eletronico.repository.ProfessorRepository;
 
 @Service
 public class DBService {
@@ -25,7 +12,7 @@ public class DBService {
 	
 	/*@Autowired
 	private DisciplinaRepository disciplinaRepository;
-	*/
+	
 	@Autowired
 	private ProfessorRepository profissionalRepository;
 		
@@ -38,7 +25,7 @@ public class DBService {
 	@Autowired
 	private ProfessorTurmaRepository professorTurmaRepository;*/
 	
-	@Autowired
+	/*@Autowired
 	private BCryptPasswordEncoder encoder;
 	
 	public void instanciaDB() throws ParseException {
@@ -53,7 +40,7 @@ public class DBService {
 		/*Aluno a1 = new Aluno(null, "João Borges", sdf.parse("25/06/1995"),"masculino", "133.120.446-18", "mg19.599.003", "Maria Aparecida do Santos",
 							"(38)99927-6907", "rua: batista", "urbana", "1° serie");*/
 			
-		Professor p1 = new Professor(null, "Mateus Oliver",sdf.parse("25/06/1995"), "masculino","787.352.100-10", "mg19.599.003", 
+		/*Professor p1 = new Professor(null, "Mateus Oliver",sdf.parse("25/06/1995"), "masculino","787.352.100-10", "mg19.599.003", 
 							"(38)99927-6907",  "rua: batista", "urbana","admin@gmail.com", encoder.encode("123"));
 		p1.addPerfil(Perfil.ADMIN);
 		
@@ -82,9 +69,9 @@ public class DBService {
 				
 		professorTurmaRepository.saveAll(Arrays.asList(pf1));*/
 
-	    profissionalRepository.saveAll(Arrays.asList(p1,p2));
+	  /*  profissionalRepository.saveAll(Arrays.asList(p1,p2));
 
-	}
+	}*/
 
 	
 }

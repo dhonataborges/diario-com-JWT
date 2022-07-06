@@ -1,7 +1,7 @@
 package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +27,7 @@ public class Aluno implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	private Date nascimento;
+	private LocalDate nascimento;
 	private String sexo;
 	private String cpf;	
 	private String rg;
@@ -51,12 +51,12 @@ public class Aluno implements Serializable {
 	public Aluno() {
 		super();
 	}
-	public Aluno(Integer id, String nome, Date nascimento, String sexo, String cpf, String rg, String responsavel, String telefone,
+	public Aluno(Integer id, String nome, LocalDate nascimento, String sexo, String cpf, String rg, String responsavel, String telefone,
 			String endereco, String zona, String serie, Turma turma) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.nascimento = nascimento;
+		this.setNascimento(LocalDate.now());
 		this.sexo = sexo;
 		this.cpf = cpf;
 		this.rg = rg;
@@ -100,11 +100,11 @@ public class Aluno implements Serializable {
 		this.nome = nome;
 	}
 
-	public Date getNascimento() {
+	public LocalDate getNascimento() {
 		return nascimento;
 	}
 
-	public void setNascimento(Date nascimento) {
+	public void setNascimento(LocalDate nascimento) {
 		this.nascimento = nascimento;
 	}
 

@@ -49,10 +49,13 @@ public class ProfessorTurmaDisciplinaService{
 	}
 	
 	private ProfessorTurmaDisciplina newProfessorTurmaDisciplina(ProfessorTurmaDisciplinaDTO obj) {
+		
 		ProfessorTurma profTurma = professorTurmaService.findById(obj.getProfessorTurma());
+		
 		Disciplina disciplina = disciplinaService.findById(obj.getDisciplina());
 		
 		ProfessorTurmaDisciplina professorTurmaDisciplina = new ProfessorTurmaDisciplina();
+		
 		if(obj.getId() != null) {
 			professorTurmaDisciplina.setId(obj.getId());
 		}
