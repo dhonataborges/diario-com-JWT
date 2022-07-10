@@ -67,7 +67,6 @@ public class ProfessorTurmaService{
 	}
 	
 	public void delete(Integer id) {
-		
 		repository.deleteById(id);
 	}
 	

@@ -37,10 +37,12 @@ public class Turma implements Serializable {
 	@JoinColumn(name = "serie_nivel_subnivel_id")
 	private SerieNivelSubnivel serieNivelSubnivel;
 	
+	@Column(unique = true)
 	@OneToMany(mappedBy = "turma", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<ProfessorTurma> professorTurma;
 	
+	@Column(unique = true)
 	@OneToMany(mappedBy = "turma", cascade = CascadeType.MERGE, fetch = FetchType.EAGER, orphanRemoval = true)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Aluno> aluno;

@@ -7,7 +7,6 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +17,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -44,8 +45,7 @@ public class ProfessorTurmaDisciplina implements Serializable{
 	private Integer anoLetivo;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "professorTurmaDisciplina", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@Fetch(value = FetchMode.SUBSELECT)
+	@OneToMany(mappedBy = "professorTurmaDisciplina", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	private List<Aula> aula;
 	
 	@JsonIgnore

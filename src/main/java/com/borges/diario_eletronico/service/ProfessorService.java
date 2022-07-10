@@ -91,13 +91,13 @@ public class ProfessorService {
 		}
 
 		profissional.setNome(obj.getNome());
-		profissional.setNascimento(obj.getNascimento());
+		/*profissional.setNascimento(obj.getNascimento());
 		profissional.setSexo(obj.getSexo());
 		profissional.setCpf(obj.getCpf());
 		profissional.setRg(obj.getRg());
 		profissional.setTelefone(obj.getTelefone());
 		profissional.setEndereco(obj.getEndereco());
-		profissional.setZona(obj.getZona());
+		profissional.setZona(obj.getZona());*/
 		profissional.setEmail(obj.getEmail());
 		profissional.setSenha(obj.getSenha());
 
@@ -117,10 +117,11 @@ public class ProfessorService {
 	 * Busca o Aluno pelo CPF
 	 */
 	private void validaPorCpfEEmail(ProfessorDTO objDTO) {
-		Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
-		if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+		Optional<Pessoa> obj = pessoaRepository.findByEmail(objDTO.getEmail());
+	
+		/*if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
 			throw new DataIntegrityViolationException("CPF já cadastrado no sistema!");
-		}
+		}*/
 
 		obj = pessoaRepository.findByEmail(objDTO.getEmail());
 		if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {

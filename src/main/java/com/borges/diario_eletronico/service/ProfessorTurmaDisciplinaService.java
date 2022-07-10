@@ -13,6 +13,7 @@ import com.borges.diario_eletronico.domain.ProfessorTurma;
 import com.borges.diario_eletronico.domain.ProfessorTurmaDisciplina;
 import com.borges.diario_eletronico.domain.dtos.ProfessorTurmaDisciplinaDTO;
 import com.borges.diario_eletronico.repository.ProfessorTurmaDisciplinaRepository;
+import com.borges.diario_eletronico.service.execeptions.DataIntegratyViolationException;
 import com.borges.diario_eletronico.service.execeptions.ObjectNotFoundException;
 
 
@@ -70,6 +71,13 @@ public class ProfessorTurmaDisciplinaService{
 	
 	public void delete(Integer id) {
 		
+		ProfessorTurmaDisciplina obj = findById(id);
+
+		if (obj.getAula().size() > 0) {
+
+			throw new DataIntegratyViolationException("Professor possui aulas, não pode ser deletado!");
+
+		}
 		repository.deleteById(id);
 	}
 	

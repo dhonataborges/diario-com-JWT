@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,10 +25,10 @@ public class Disciplina implements Serializable {
 	private String nome;
 	private String ementa;
 	
-	@OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "disciplina", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	private List<ProfessorTurmaDisciplina> professorTurmaDisciplina;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(cascade = {CascadeType.DETACH})
     @JoinColumn(name = "serieNivelSubnivel_id")
     private SerieNivelSubnivel serieNivelSubnivel;
  

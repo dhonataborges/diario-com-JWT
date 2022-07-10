@@ -22,11 +22,11 @@ public class AlunoAula implements Serializable{
 	private Integer id;
 	private BitSet frequencia;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "aula_id")
 	private Aula aula;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "aluno_id")
 	private Aluno aluno;
 	

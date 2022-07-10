@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,11 +30,12 @@ public class SerieNivelSubnivel implements Serializable{
 	private Integer subnivel;
 	private String descricao;
 	
+	@Column(unique = true)
 	@OneToMany(mappedBy = "serieNivelSubnivel", cascade = CascadeType.MERGE, fetch = FetchType.EAGER, orphanRemoval = true)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Turma> turma;
 	
-	@OneToOne(mappedBy = "serieNivelSubnivel", fetch = FetchType.LAZY, optional = false)
+	@OneToOne(cascade = {CascadeType.DETACH})
 	private Disciplina disciplina;
 	
 	public SerieNivelSubnivel() {

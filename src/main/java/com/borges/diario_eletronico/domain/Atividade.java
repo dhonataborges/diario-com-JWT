@@ -40,7 +40,8 @@ public class Atividade implements Serializable {
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "professor_turma_disciplina_id")
 	private ProfessorTurmaDisciplina professorTurmaDisciplina;
-
+	
+	@Column(unique = true)
 	@OneToMany(mappedBy = "atividade", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	private List<AlunoAtividade> alunoAtividade;
 

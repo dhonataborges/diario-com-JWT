@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,6 +38,7 @@ public class ProfessorTurma implements Serializable{
 	
 	private Status status;
 	
+	@Column(unique = true)
 	@OneToMany(mappedBy = "professorTurma", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	private List<ProfessorTurmaDisciplina> professorTurmaDisciplina;
 		

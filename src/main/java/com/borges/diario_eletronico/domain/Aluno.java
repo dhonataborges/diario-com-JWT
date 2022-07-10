@@ -1,9 +1,7 @@
 package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -27,14 +25,14 @@ public class Aluno implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	private LocalDate nascimento;
+	/*private LocalDate nascimento;
 	private String sexo;
 	private String cpf;	
 	private String rg;
 	private String responsavel;
 	private String telefone;
 	private String endereco;
-	private String zona;
+	private String zona;*/
 	
 	@ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "turma_id")	
@@ -51,23 +49,23 @@ public class Aluno implements Serializable {
 	public Aluno() {
 		super();
 	}
-	public Aluno(Integer id, String nome, LocalDate nascimento, String sexo, String cpf, String rg, String responsavel, String telefone,
-			String endereco, String zona, String serie, Turma turma) {
+	public Aluno(Integer id, String nome/*, LocalDate nascimento, String sexo, String cpf, String rg, String responsavel, String telefone,
+			String endereco, String zona*/, Turma turma) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.setNascimento(LocalDate.now());
+		/*this.setNascimento(LocalDate.now());
 		this.sexo = sexo;
 		this.cpf = cpf;
 		this.rg = rg;
 		this.responsavel = responsavel;
 		this.telefone = telefone;
 		this.endereco = endereco;		
-		this.zona = zona;
+		this.zona = zona;*/
 		this.turma = turma;
 	}
 	
-	@Override
+	/*@Override
 	public int hashCode() {
 		return Objects.hash(cpf, id, rg);
 	}
@@ -82,7 +80,7 @@ public class Aluno implements Serializable {
 			return false;
 		Aluno other = (Aluno) obj;
 		return Objects.equals(cpf, other.cpf) && Objects.equals(id, other.id) && Objects.equals(rg, other.rg);
-	}
+	}*/
 
 	public Integer getId() {
 		return id;
@@ -100,7 +98,7 @@ public class Aluno implements Serializable {
 		this.nome = nome;
 	}
 
-	public LocalDate getNascimento() {
+	/*public LocalDate getNascimento() {
 		return nascimento;
 	}
 
@@ -164,7 +162,7 @@ public class Aluno implements Serializable {
 	public void setZona(String zona) {
 		this.zona = zona;
 	}
-	
+	*/
 	public List<AlunoAtividade> getAlunoAtividade() {
 		return alunoAtividade;
 	}
