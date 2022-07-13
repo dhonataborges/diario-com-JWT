@@ -1,4 +1,4 @@
-package com.borges.diario_eletronico.domain;
+/*package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -103,4 +103,4 @@ public class ProfessorTurma implements Serializable{
 		this.professorTurmaDisciplina = professorTurmaDisciplina;
 	}
 		
-}
+}*/

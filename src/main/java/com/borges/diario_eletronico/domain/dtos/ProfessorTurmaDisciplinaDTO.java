@@ -1,20 +1,25 @@
 package com.borges.diario_eletronico.domain.dtos;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import com.borges.diario_eletronico.domain.ProfessorTurmaDisciplina;
+import com.borges.diario_eletronico.domain.enums.Status;
 
 public class ProfessorTurmaDisciplinaDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-
-	private Integer professorTurma;
-	private String nomeProfessorTurma;
+	private Integer professor;
+	private String nomeProfessor;
+	private Integer turma;
+	private String descricaoTurma;
 	private Integer disciplina;
 	private String nomeDisciplina;
 	private Integer bimestre;
 	private Integer anoLetivo;
+	private LocalDate dataAtribuicao;
+	private Status status;
 		
 	public ProfessorTurmaDisciplinaDTO() {
 		super();
@@ -23,12 +28,14 @@ public class ProfessorTurmaDisciplinaDTO implements Serializable{
 	public ProfessorTurmaDisciplinaDTO(ProfessorTurmaDisciplina obj) {
 		super();
 		this.id = obj.getId();
-		this.professorTurma = obj.getProfessorTurma().getProfessor().getId();
-		this.nomeProfessorTurma = obj.getProfessorTurma().getProfessor().getNome();
+		this.professor = obj.getProfessor().getId();
+		this.nomeProfessor = obj.getProfessor().getNome();
 		this.disciplina = obj.getDisciplina().getId();
 		this.nomeDisciplina = obj.getDisciplina().getNome();
 		this.bimestre = obj.getBimestre();
 		this.anoLetivo = obj.getAnoLetivo();
+		this.dataAtribuicao = obj.getDataAtribuicao();
+		this.status = obj.getStatus();
 	}
 
 	public Integer getId() {
@@ -39,20 +46,36 @@ public class ProfessorTurmaDisciplinaDTO implements Serializable{
 		this.id = id;
 	}
 
-	public Integer getProfessorTurma() {
-		return professorTurma;
+	public Integer getProfessor() {
+		return professor;
 	}
 
-	public void setProfessorTurma(Integer professorTurma) {
-		this.professorTurma = professorTurma;
+	public void setProfessor(Integer professor) {
+		this.professor = professor;
 	}
 	
-	public String getNomeProfessorTurma() {
-		return nomeProfessorTurma;
+	public String getNomeProfessor() {
+		return nomeProfessor;
 	}
 
-	public void setNomeProfessorTurma(String nomeProfessorTurma) {
-		this.nomeProfessorTurma = nomeProfessorTurma;
+	public void setNomeProfessor(String nomeProfessor) {
+		this.nomeProfessor = nomeProfessor;
+	}
+
+	public Integer getTurma() {
+		return turma;
+	}
+
+	public void setTurma(Integer turma) {
+		this.turma = turma;
+	}
+
+	public String getDescricaoTurma() {
+		return descricaoTurma;
+	}
+
+	public void setDescricaoTurma(String descricaoTurma) {
+		this.descricaoTurma = descricaoTurma;
 	}
 
 	public Integer getDisciplina() {
@@ -86,5 +109,21 @@ public class ProfessorTurmaDisciplinaDTO implements Serializable{
 	public void setAnoLetivo(Integer anoLetivo) {
 		this.anoLetivo = anoLetivo;
 	}
-		
+
+	public LocalDate getDataAtribuicao() {
+		return dataAtribuicao;
+	}
+
+	public void setDataAtribuicao(LocalDate dataAtribuicao) {
+		this.dataAtribuicao = dataAtribuicao;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+			
 }

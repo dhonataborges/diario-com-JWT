@@ -1,4 +1,4 @@
-package com.borges.diario_eletronico.domain.dtos;
+/*package com.borges.diario_eletronico.domain.dtos;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -93,3 +93,4 @@ public class ProfessorTurmaDTO implements Serializable{
 	}
 		
 }
+*/

@@ -40,7 +40,7 @@ public class Turma implements Serializable {
 	@Column(unique = true)
 	@OneToMany(mappedBy = "turma", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@Fetch(value = FetchMode.SUBSELECT)
-	private List<ProfessorTurma> professorTurma;
+	private List<ProfessorTurmaDisciplina> professorTurmaDisciplinas;
 	
 	@Column(unique = true)
 	@OneToMany(mappedBy = "turma", cascade = CascadeType.MERGE, fetch = FetchType.EAGER, orphanRemoval = true)
@@ -108,12 +108,12 @@ public class Turma implements Serializable {
 		this.serieNivelSubnivel = serieNivelSubnivel;
 	}
 
-	public List<ProfessorTurma> getProfessorTurma() {
-		return professorTurma;
+	public List<ProfessorTurmaDisciplina> getProfessorTurmaDisciplinas() {
+		return professorTurmaDisciplinas;
 	}
 
-	public void setProfessorTurma(List<ProfessorTurma> professorTurma) {
-		this.professorTurma = professorTurma;
+	public void setProfessorTurmaDisciplina(List<ProfessorTurmaDisciplina> professorTurmaDisciplinas) {
+		this.professorTurmaDisciplinas = professorTurmaDisciplinas;
 	}
 
 	public List<Aluno> getAluno() {

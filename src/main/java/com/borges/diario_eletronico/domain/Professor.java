@@ -1,13 +1,11 @@
 package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import com.borges.diario_eletronico.domain.dtos.ProfessorDTO;
@@ -16,8 +14,8 @@ import com.borges.diario_eletronico.domain.dtos.ProfessorDTO;
 public class Professor extends Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<ProfessorTurma> professorTurma;
+	@OneToMany(mappedBy = "professor", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+	private List<ProfessorTurmaDisciplina> professorTurmaDisciplinas;
 
 	public Professor() {
 		super();
@@ -46,12 +44,12 @@ public class Professor extends Pessoa implements Serializable {
 		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 	}
 
-	public List<ProfessorTurma> getProfessorTurma() {
-		return professorTurma;
+	public List<ProfessorTurmaDisciplina> getProfessorTurmaDisciplinas() {
+		return professorTurmaDisciplinas;
 	}
 
-	public void setProfessorTurma(List<ProfessorTurma> professorTurma) {
-		this.professorTurma = professorTurma;
+	public void setProfessorTurmaDisciplinas(List<ProfessorTurmaDisciplina> professorTurmaDisciplinas) {
+		this.professorTurmaDisciplinas = professorTurmaDisciplinas;
 	}
 
 }

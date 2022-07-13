@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.borges.diario_eletronico.domain.Disciplina;
-import com.borges.diario_eletronico.domain.ProfessorTurma;
+import com.borges.diario_eletronico.domain.Professor;
 import com.borges.diario_eletronico.domain.ProfessorTurmaDisciplina;
+import com.borges.diario_eletronico.domain.Turma;
 import com.borges.diario_eletronico.domain.dtos.ProfessorTurmaDisciplinaDTO;
 import com.borges.diario_eletronico.repository.ProfessorTurmaDisciplinaRepository;
 import com.borges.diario_eletronico.service.execeptions.DataIntegratyViolationException;
@@ -24,7 +25,10 @@ public class ProfessorTurmaDisciplinaService{
 	private ProfessorTurmaDisciplinaRepository repository;
 	
 	@Autowired
-	private ProfessorTurmaService professorTurmaService;
+	private ProfessorService professorService;
+	
+	@Autowired
+	private TurmaService turmaService;
 	
 	@Autowired
 	private DisciplinaService disciplinaService;
@@ -49,22 +53,25 @@ public class ProfessorTurmaDisciplinaService{
 		return repository.save(oldObj);
 	}
 	
-	private ProfessorTurmaDisciplina newProfessorTurmaDisciplina(ProfessorTurmaDisciplinaDTO obj) {
+	private ProfessorTurmaDisciplina newProfessorTurmaDisciplina(ProfessorTurmaDisciplinaDTO objDTO) {
 		
-		ProfessorTurma profTurma = professorTurmaService.findById(obj.getProfessorTurma());
-		
-		Disciplina disciplina = disciplinaService.findById(obj.getDisciplina());
+		Professor prof = professorService.findById(objDTO.getProfessor());
+		Turma turma = turmaService.findById(objDTO.getTurma());
+		Disciplina disciplina = disciplinaService.findById(objDTO.getDisciplina());
 		
 		ProfessorTurmaDisciplina professorTurmaDisciplina = new ProfessorTurmaDisciplina();
 		
-		if(obj.getId() != null) {
-			professorTurmaDisciplina.setId(obj.getId());
+		if(objDTO.getId() != null) {
+			professorTurmaDisciplina.setId(objDTO.getId());
 		}
 		
-		professorTurmaDisciplina.setProfessorTurma(profTurma);
+		professorTurmaDisciplina.setProfessor(prof);
+		professorTurmaDisciplina.setTurma(turma);
 		professorTurmaDisciplina.setDisciplina(disciplina);;
-		professorTurmaDisciplina.setBimestre(obj.getBimestre());
-		professorTurmaDisciplina.setAnoLetivo(obj.getAnoLetivo());
+		professorTurmaDisciplina.setBimestre(objDTO.getBimestre());
+		professorTurmaDisciplina.setAnoLetivo(objDTO.getAnoLetivo());
+		professorTurmaDisciplina.setDataAtribuicao(objDTO.getDataAtribuicao());
+		professorTurmaDisciplina.setStatus(objDTO.getStatus());
 		
 		return professorTurmaDisciplina;
 	}

@@ -48,7 +48,7 @@ public class TurmaService {
 
 			throw new DataIntegratyViolationException("Turma possui alunos, não pode ser Atualizada!");
 
-		} if (oldObj.getProfessorTurma().size() > 0) {
+		} if (oldObj.getProfessorTurmaDisciplinas().size() > 0) {
 
 			throw new DataIntegratyViolationException("Turma possui professor, não pode ser Atulaizada!");
 
@@ -84,7 +84,7 @@ public class TurmaService {
 
 			throw new DataIntegratyViolationException("Turma possui alunos, não pode ser deletada!");
 
-		} if (obj.getProfessorTurma().size() > 0) {
+		} if (obj.getProfessorTurmaDisciplinas().size() > 0) {
 
 			throw new DataIntegratyViolationException("Turma possui professor, não pode ser deletad!");
 

@@ -1,4 +1,4 @@
-package com.borges.diario_eletronico.service;
+/*package com.borges.diario_eletronico.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +29,7 @@ public class ProfessorTurmaService{
 	@Autowired
 	private TurmaService turmaService;
 	
-	public ProfessorTurma findById(Integer id) {
+	public ProfessorTurma findById(Integer id) {		
 		Optional<ProfessorTurma> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
 	}
@@ -50,10 +50,12 @@ public class ProfessorTurmaService{
 	}
 	
 	private ProfessorTurma newProfessorTurma(ProfessorTurmaDTO obj) {
+		
 		Professor professor = professorService.findById(obj.getProfessor());
-		Turma turma = turmaService.findById(obj.getTurma());
+		Turma turma = turmaService.findById(obj.getTurma());	
 		
 		ProfessorTurma professorTurma = new ProfessorTurma();
+		
 		if(obj.getId() != null) {
 			professorTurma.setId(obj.getId());
 		}
@@ -70,4 +72,4 @@ public class ProfessorTurmaService{
 		repository.deleteById(id);
 	}
 	
-}
+}*/

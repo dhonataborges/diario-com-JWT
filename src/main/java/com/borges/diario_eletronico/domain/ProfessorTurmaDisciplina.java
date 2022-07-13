@@ -1,6 +1,7 @@
 package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,54 +18,71 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
+import com.borges.diario_eletronico.domain.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "professor_turma_disciplina")
-public class ProfessorTurmaDisciplina implements Serializable{
-    private static final long serialVersionUID = 1L;
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ProfessorTurmaDisciplina implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "professor_turma_id")
-	private ProfessorTurma professorTurma;
-	
+
+	/*
+	 * @ManyToOne(cascade = CascadeType.ALL)
+	 * 
+	 * @JoinColumn(name = "professor_turma_id") private ProfessorTurma
+	 * professorTurma;
+	 */
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "disciplina_id")
 	private Disciplina disciplina;
-	
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "turma_id")
+	private Turma turma;
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "professor_id")
+	private Professor professor;
+
+	private LocalDate dataAtribuicao;
+
+	private Status status;
+
 	private Integer bimestre;
-	
+
 	@Column(name = "ano_letivo")
 	private Integer anoLetivo;
-	
+
 	@JsonIgnore
-	@OneToMany(mappedBy = "professorTurmaDisciplina", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+	@OneToMany(mappedBy = "professorTurmaDisciplina", cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
 	private List<Aula> aula;
-	
+
 	@JsonIgnore
-	@OneToMany(mappedBy = "professorTurmaDisciplina", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+	@OneToMany(mappedBy = "professorTurmaDisciplina", cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Atividade> atividade;
-	
+
 	public ProfessorTurmaDisciplina() {
 		super();
 	}
 
-	public ProfessorTurmaDisciplina(Integer id, ProfessorTurma professorTurma, Disciplina disciplina, Integer bimestre,
-			Integer anoLetivo) {
+	public ProfessorTurmaDisciplina(Integer id, Professor professor, Turma turma, Disciplina disciplina, Integer bimestre,
+			Integer anoLetivo, LocalDate dataAtribuicao, Status status) {
 		super();
 		this.id = id;
-		this.professorTurma = professorTurma;
+		this.professor = professor;
+		this.turma = turma;
 		this.disciplina = disciplina;
 		this.bimestre = bimestre;
 		this.anoLetivo = anoLetivo;
+		this.setDataAtribuicao(LocalDate.now());
+		this.status = status;
 	}
 
 	@Override
@@ -92,12 +110,36 @@ public class ProfessorTurmaDisciplina implements Serializable{
 		this.id = id;
 	}
 
-	public ProfessorTurma getProfessorTurma() {
-		return professorTurma;
+	public Professor getProfessor() {
+		return professor;
 	}
 
-	public void setProfessorTurma(ProfessorTurma professorTurma) {
-		this.professorTurma = professorTurma;
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+
+	public Turma getTurma() {
+		return turma;
+	}
+
+	public void setTurma(Turma turma) {
+		this.turma = turma;
+	}
+
+	public LocalDate getDataAtribuicao() {
+		return dataAtribuicao;
+	}
+
+	public void setDataAtribuicao(LocalDate dataAtribuicao) {
+		this.dataAtribuicao = dataAtribuicao;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	public Disciplina getDisciplina() {
@@ -139,5 +181,5 @@ public class ProfessorTurmaDisciplina implements Serializable{
 	public void setAtividade(List<Atividade> atividade) {
 		this.atividade = atividade;
 	}
-			
+
 }

@@ -1,4 +1,4 @@
-package com.borges.diario_eletronico.controller;
+/*package com.borges.diario_eletronico.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -34,7 +34,7 @@ public class ProfessorTurmaController {
 		
 	/**
 	 * Buscar ProfessorTurma pelo ID
-	 */
+	 *
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ProfessorTurmaDTO> findById(@PathVariable Integer id) {
@@ -44,7 +44,7 @@ public class ProfessorTurmaController {
 	
 	
 	/*
-	 * Busca todos os ProfessorTurma da base de dados*/
+	 * Busca todos os ProfessorTurma da base de dados*
 	
 	@GetMapping
 	public ResponseEntity<List<ProfessorTurmaDTO>> findAll() {
@@ -55,7 +55,7 @@ public class ProfessorTurmaController {
 
 	/*
 	 * Atualizar um ProfessorTurma
-	*/
+	*
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ProfessorTurmaDTO> update(@PathVariable Integer id, @Valid @RequestBody ProfessorTurmaDTO objDTO) {
@@ -65,7 +65,7 @@ public class ProfessorTurmaController {
 	
 	/*
 	 * Cria um ProfessorTurma
-	 */
+	 *
 	@PostMapping
 	public ResponseEntity<ProfessorTurmaDTO> create(@Valid @RequestBody ProfessorTurmaDTO obj) {
 		ProfessorTurma newObj = service.create(obj);
@@ -78,7 +78,7 @@ public class ProfessorTurmaController {
 	
 	/*
 	 *  Delete um ProfessorTurma
-	 */
+	 *
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id){
 		service.delete(id);
@@ -86,4 +86,4 @@ public class ProfessorTurmaController {
 		return ResponseEntity.noContent().build();
 	}
 	
-}
+}*/
