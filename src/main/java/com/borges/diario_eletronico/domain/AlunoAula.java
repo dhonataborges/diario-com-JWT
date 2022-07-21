@@ -1,7 +1,6 @@
 package com.borges.diario_eletronico.domain;
 
 import java.io.Serializable;
-import java.util.BitSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -20,7 +19,8 @@ public class AlunoAula implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private BitSet frequencia;
+	
+	private Boolean frequencia;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "aula_id")
@@ -34,7 +34,7 @@ public class AlunoAula implements Serializable{
 		super();
 	}
 
-	public AlunoAula(Integer id, BitSet frequencia, Aula aula, Aluno aluno) {
+	public AlunoAula(Integer id, Boolean frequencia, Aula aula, Aluno aluno) {
 		super();
 		this.id = id;
 		this.frequencia = frequencia;
@@ -50,11 +50,11 @@ public class AlunoAula implements Serializable{
 		this.id = id;
 	}
 
-	public BitSet getFrequencia() {
+	public Boolean getFrequencia() {
 		return frequencia;
 	}
 
-	public void setFrequencia(BitSet frequencia) {
+	public void setFrequencia(Boolean frequencia) {
 		this.frequencia = frequencia;
 	}
 

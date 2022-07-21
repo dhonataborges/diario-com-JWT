@@ -24,6 +24,7 @@ public class AlunoAulaService {
 	@Autowired	
 	private AulaService aulaService;
 	
+	@Autowired	
 	private AlunoService alunoService;
 
 	public AlunoAula findById(Integer id) {
@@ -44,22 +45,16 @@ public class AlunoAulaService {
 		objDTO.setId(id);
 		AlunoAula oldObj = findById(id);
 		
-		/* if (oldObj.getProfessorAlunoAula().size() > 0) {
-
-			throw new DataIntegratyViolationException("AlunoAula possui professor, não pode ser Atulaizada!");
-
-		} */
-		
-
 		oldObj = newAlunoAula(objDTO);
 		
 		return repository.save(oldObj);
 	}
 
 	private AlunoAula newAlunoAula(AlunoAulaDTO objDTO) {
-		
-		Aula aula = aulaService.findById(objDTO.getAula());
+
 		Aluno aluno = alunoService.findById(objDTO.getAluno());
+		Aula aula = aulaService.findById(objDTO.getAula());
+		
 		AlunoAula alunoAula = new AlunoAula();
 		
 		if (objDTO.getId() != null) {
@@ -67,21 +62,14 @@ public class AlunoAulaService {
 		}
 
 		alunoAula.setFrequencia(objDTO.getFrequencia());
-		alunoAula.setAula(aula);
 		alunoAula.setAluno(aluno);
+		alunoAula.setAula(aula);
 
 		return alunoAula;
 	}
 
 	public void delete(Integer id) {
 
-		AlunoAula obj = findById(id);
-
-		/* if (obj.getProfessorTurmaDisciplina().size() > 0) {
-
-			throw new DataIntegratyViolationException("AlunoAula possui professor, não pode ser deletad!");
-
-		} */
 		repository.deleteById(id);
 	}
 

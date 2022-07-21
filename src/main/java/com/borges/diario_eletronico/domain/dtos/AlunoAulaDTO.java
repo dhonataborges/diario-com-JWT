@@ -1,16 +1,13 @@
 package com.borges.diario_eletronico.domain.dtos;
 
-import java.time.LocalDate;
-import java.util.BitSet;
-
 import com.borges.diario_eletronico.domain.AlunoAula;
 
 public class AlunoAulaDTO {
 	
 	private Integer id;
-    private BitSet frequencia;
+    private Boolean frequencia;
     private Integer aula;
-    private LocalDate aulaData;
+    private String conteudoAula;
     private Integer aluno;
     private String nomeAluno;
     
@@ -24,7 +21,7 @@ public class AlunoAulaDTO {
 		this.id = obj.getId();
 		this.frequencia = obj.getFrequencia();
 		this.aula = obj.getAula().getId();
-		this.aulaData = obj.getAula().getData();
+		this.conteudoAula = obj.getAula().getConteudo();
 		this.aluno = obj.getAluno().getId();
 		this.nomeAluno = obj.getAluno().getNome();
 	}
@@ -35,10 +32,10 @@ public class AlunoAulaDTO {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public BitSet getFrequencia() {
+	public Boolean getFrequencia() {
 		return frequencia;
 	}
-	public void setFrequencia(BitSet frequencia) {
+	public void setFrequencia(Boolean frequencia) {
 		this.frequencia = frequencia;
 	}
 	public Integer getAula() {
@@ -47,11 +44,11 @@ public class AlunoAulaDTO {
 	public void setAula(Integer aula) {
 		this.aula = aula;
 	}
-	public LocalDate getAulaData() {
-		return aulaData;
+	public String getConteudoAula() {
+		return conteudoAula;
 	}
-	public void setAulaData(LocalDate aulaData) {
-		this.aulaData = aulaData;
+	public void setConteudoAula(String conteudoAula) {
+		this.conteudoAula = conteudoAula;
 	}
 	public Integer getAluno() {
 		return aluno;

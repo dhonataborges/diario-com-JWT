@@ -32,6 +32,8 @@ public class ProfessorTurmaDisciplinaDTO implements Serializable{
 		this.nomeProfessor = obj.getProfessor().getNome();
 		this.disciplina = obj.getDisciplina().getId();
 		this.nomeDisciplina = obj.getDisciplina().getNome();
+		this.turma = obj.getTurma().getId();
+		this.descricaoTurma = obj.getTurma().getSerieNivelSubnivel().getDescricao();
 		this.bimestre = obj.getBimestre();
 		this.anoLetivo = obj.getAnoLetivo();
 		this.dataAtribuicao = obj.getDataAtribuicao();
