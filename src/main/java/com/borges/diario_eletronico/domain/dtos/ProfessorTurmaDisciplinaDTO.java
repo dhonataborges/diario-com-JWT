@@ -19,7 +19,7 @@ public class ProfessorTurmaDisciplinaDTO implements Serializable{
 	private Integer bimestre;
 	private Integer anoLetivo;
 	private LocalDate dataAtribuicao;
-	private Status status;
+	private Integer status;
 		
 	public ProfessorTurmaDisciplinaDTO() {
 		super();
@@ -37,7 +37,7 @@ public class ProfessorTurmaDisciplinaDTO implements Serializable{
 		this.bimestre = obj.getBimestre();
 		this.anoLetivo = obj.getAnoLetivo();
 		this.dataAtribuicao = obj.getDataAtribuicao();
-		this.status = obj.getStatus();
+		this.status = obj.getStatus().getCodigo();
 	}
 
 	public Integer getId() {
@@ -121,10 +121,10 @@ public class ProfessorTurmaDisciplinaDTO implements Serializable{
 	}
 
 	public Status getStatus() {
-		return status;
+		return Status.toEnum(this.status);
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 			

@@ -3,7 +3,6 @@ package com.borges.diario_eletronico.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,7 +51,7 @@ public class ProfessorTurmaDisciplina implements Serializable {
 
 	private LocalDate dataAtribuicao;
 
-	private Status status;
+	private Integer status;
 
 	private Integer bimestre;
 
@@ -82,24 +81,7 @@ public class ProfessorTurmaDisciplina implements Serializable {
 		this.bimestre = bimestre;
 		this.anoLetivo = anoLetivo;
 		this.setDataAtribuicao(LocalDate.now());
-		this.status = status;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ProfessorTurmaDisciplina other = (ProfessorTurmaDisciplina) obj;
-		return Objects.equals(id, other.id);
+		this.status = (status == null) ? 0 : status.getCodigo();
 	}
 
 	public Integer getId() {
@@ -135,11 +117,11 @@ public class ProfessorTurmaDisciplina implements Serializable {
 	}
 
 	public Status getStatus() {
-		return status;
+		return Status.toEnum(this.status);
 	}
 
 	public void setStatus(Status status) {
-		this.status = status;
+		this.status = status.getCodigo();
 	}
 
 	public Disciplina getDisciplina() {

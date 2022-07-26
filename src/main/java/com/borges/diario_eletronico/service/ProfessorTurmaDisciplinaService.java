@@ -13,6 +13,7 @@ import com.borges.diario_eletronico.domain.Professor;
 import com.borges.diario_eletronico.domain.ProfessorTurmaDisciplina;
 import com.borges.diario_eletronico.domain.Turma;
 import com.borges.diario_eletronico.domain.dtos.ProfessorTurmaDisciplinaDTO;
+import com.borges.diario_eletronico.domain.enums.Status;
 import com.borges.diario_eletronico.repository.ProfessorTurmaDisciplinaRepository;
 import com.borges.diario_eletronico.service.execeptions.DataIntegratyViolationException;
 import com.borges.diario_eletronico.service.execeptions.ObjectNotFoundException;
@@ -71,7 +72,7 @@ public class ProfessorTurmaDisciplinaService{
 		professorTurmaDisciplina.setBimestre(objDTO.getBimestre());
 		professorTurmaDisciplina.setAnoLetivo(objDTO.getAnoLetivo());
 		professorTurmaDisciplina.setDataAtribuicao(objDTO.getDataAtribuicao());
-		professorTurmaDisciplina.setStatus(objDTO.getStatus());
+		professorTurmaDisciplina.setStatus(Status.toEnum(objDTO.getStatus().getCodigo()));
 		
 		return professorTurmaDisciplina;
 	}

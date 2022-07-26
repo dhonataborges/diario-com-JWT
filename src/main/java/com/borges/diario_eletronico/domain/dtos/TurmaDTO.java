@@ -23,7 +23,7 @@ public class TurmaDTO implements Serializable {
 		this.id = obj.getId();
 		this.anoLetivo = obj.getAnoLetivo();
 		this.sala = obj.getSala();
-		this.serieNivelSubnivel = obj.getSerieNivelSubnivel().getId();
+		this.serieNivelSubnivel = obj.getSerieNivelSubnivel().getNivel();
 		this.nomeSerieNivelSubnivel = obj.getSerieNivelSubnivel().getDescricao();
 		
 		
