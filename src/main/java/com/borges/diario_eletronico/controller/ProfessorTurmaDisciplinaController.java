@@ -53,7 +53,7 @@ public class ProfessorTurmaDisciplinaController {
 	 * Busca todos os ProfessorTurmaDisciplina da base de dados*/
 	
 	@GetMapping
-	public ResponseEntity<List<ProfessorTurmaDisciplinaDTO>> findAll() {
+	public ResponseEntity<List<ProfessorTurmaDisciplinaDTO>> findAllTurmas(){
 		List<ProfessorTurmaDisciplina> list = service.findAll();
 		List<ProfessorTurmaDisciplinaDTO> listDTO = list.stream().map(x -> new ProfessorTurmaDisciplinaDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
